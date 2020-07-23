@@ -1,21 +1,32 @@
 <template>
-  <div> <div>oiii000000000000000000000000000</div>
-    <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-     <div>oiii000000000000000000000000000</div>
-      <div>oiii000000000000000000000000000</div>
-       <div>oiii000000000000000000000000000</div></div>
-
-
+     <div >
+       <Projetos/>
+     </div>
 </template>
 <script>
-export default {
 
+import Projetos from './Projetos'
+
+export default {
+   components: {
+        Projetos,
+   },
+
+   data() {
+        return {
+             key: 'value'
+        }
+   },
+
+   mounted () {
+        console.log('*mounted dash*');
+   },
+
+   methods: {
+        name() {
+
+        }
+   },
 }
 </script>
 

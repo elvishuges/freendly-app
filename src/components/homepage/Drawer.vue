@@ -1,23 +1,26 @@
 <template>
 <div>
+
  <v-navigation-drawer
       v-model="showDrawer"
       absolute
+      dark
+      class="blue-grey darken-1"
+      height="100%"
       temporary
     >
       <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
+          <v-list-item-content>
+            <v-list-item-title class="title">
+              Software tears
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              subtext
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+         <v-divider></v-divider>
+      <v-list nav >
 
         <v-list-item
           v-for="item in items"
@@ -27,11 +30,12 @@
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
-
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
+
         </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -74,8 +78,9 @@ props: {
            key: 'value',
            showDrawer:false,
            items: [
-            { title: 'Home', icon: 'dashboard' },
-            { title: 'About', icon: 'question_answer' },
+            { title: 'Home', icon: 'mdi-puzzle-edit-outline' },
+            { title: 'About', icon: 'mdi-puzzle-edit-outline' },
+            { title: 'Sair', icon: 'mdi-puzzle-edit-outline' },
           ],
        }
    },

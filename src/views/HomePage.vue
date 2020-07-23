@@ -1,13 +1,11 @@
 <template>
-    <v-sheet
-    class="overflow-hidden"
-    style="position: relative;"
+    <div
     >
         <Drawer />
-        <v-container>
+        <v-container class="pa-0">
           <router-view></router-view>
         </v-container>
-  </v-sheet>
+  </div>
 </template>
 
 <script>
