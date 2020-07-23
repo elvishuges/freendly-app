@@ -4,7 +4,7 @@
 
       <v-slide-group
         v-model="model"
-        class="pa-4"
+        class="pa-0"
         mandatory
         show-arrows
       >
