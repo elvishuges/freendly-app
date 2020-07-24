@@ -3,30 +3,21 @@
     <Projetos />
     <v-row>
       <v-flex xs12 sm9 md9>
-      <v-container class="pl-3" >
-        <v-tabs
-        background-color="white"
-        color="deep-purple accent-4"
-        left
-        class="pl-5"
-      >
-        <v-tab>Trabalhos</v-tab>
-        <v-tab>Notificações</v-tab>
-
-        <v-tab-item
-          v-for="n in 3"
-          :key="n"
-        >
-          <v-container fluid>
-            oi
-          </v-container>
-        </v-tab-item>
-      </v-tabs>
-
-           </v-container>
+        <v-container class="pl-8 pb-0 pt-0 pr-6">
+            <v-tabs v-model="tab"  >
+              <v-tab v-for="item in items" :key="item.tab">{{ item.name }}</v-tab>
+            </v-tabs>
+            <v-tabs-items v-model="tab">
+              <v-tab-item v-for="item in items" :key="item.tab">
+                <v-card flat>
+                  <v-card-text><component v-bind:is="item.content"></component></v-card-text>
+                </v-card>
+              </v-tab-item>
+            </v-tabs-items>
+        </v-container>
       </v-flex>
       <v-flex xs12 sm3 md3>
-        <Propostas/>
+        <Propostas />
       </v-flex>
     </v-row>
   </div>
@@ -34,18 +25,25 @@
 <script>
 import Projetos from "./Projetos";
 import Propostas from "./Propostas";
-//import Empregos from "./Empregos";
+import Trabalhos from "./Trabalhos";
+import Notificacoes from './Notificacoes'
 
 export default {
   components: {
     Projetos,
     Propostas,
-    //Empregos,
+    Trabalhos,
+    Notificacoes
   },
 
   data() {
     return {
       key: "value",
+      tab: null,
+      items: [
+        { tab: 0, name: "Trabalho", content: "Trabalhos" },
+        { tab: 1, name: "Notificações", content: "Notificacoes" },
+      ],
     };
   },
 
@@ -60,12 +58,11 @@ export default {
 </script>
 
 <style lang="scss">
-   .scroll {
-   overflow-y: scroll;
-
+.scroll {
+  overflow-y: scroll;
 }
 
 .v-application ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 </style>
