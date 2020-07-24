@@ -1,4 +1,6 @@
 <template>
+<div>
+<p class="headline font-weight-regular pl-4 pt-4">Projetos</p>
 <v-row align="center"
       justify="center">
 
@@ -16,8 +18,9 @@
           <v-card
             :color="active ? 'primary' : 'grey lighten-1'"
             class="ma-4"
-            height="150"
-            width="150"
+            height="200"
+            width="200"
+            elevation="6"
             @click="toggle"
           >
             <v-row
@@ -37,8 +40,9 @@
           </v-card>
         </v-slide-item>
       </v-slide-group>
-
     </v-row>
+    </div>
+
 </template>
 
 

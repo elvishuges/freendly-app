@@ -1,11 +1,11 @@
 <template>
-  <v-container  >
-      <p class="body font-weight-regular pl-2 pt-0 pa-0">Propostas pendentes</p>
-      <v-card elevation="0" height="270px" class="scroll pt-0 pl-2">
+    <v-container>
+      <p class="headline font-weight-regular pl-4 pt-4">Empregos</p>
+       <v-card elevation="5" height="250px" class="scroll pt-0">
         <v-container>
           <v-row dense>
-            <v-col v-for="(item, i) in items" :key="i" cols="12">
-              <v-card @click="name()" elevation="10" >
+            <v-col v-for="(item, i) in items" :key="i" cols="6">
+              <v-card @click="name()" elevation="3" >
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <div>
                     <v-card-title class="caption pt-0" v-text="item.title"></v-card-title>
@@ -17,15 +17,26 @@
           </v-row>
         </v-container>
       </v-card>
-  </v-container>
+
+    </v-container>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      key: "",
-      items: [
+    export default {
+        data() {
+            return {
+                key: '',
+                 items: [
+        {
+          src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+          title: "Supermodel",
+          artist: "Foster the People",
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
+          title: "Supermodel",
+          artist: "Foster the People",
+        },
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
@@ -57,13 +68,18 @@ export default {
           artist: "Ellie Goulding",
         },
       ],
-    };
-  },
-  mounted() {},
-  methods: {
-    name() {},
-  },
-};
+            }
+        },
+        mounted () {
+
+        },
+
+        methods: {
+            name() {
+
+            }
+        },
+    }
 </script>
 
 <style lang="scss">
@@ -75,4 +91,3 @@ export default {
     width: 8px;
 }
 </style>
-
