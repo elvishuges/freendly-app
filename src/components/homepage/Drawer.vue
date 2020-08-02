@@ -16,7 +16,7 @@
       </v-list-item>
       <v-divider></v-divider>
       <v-list nav>
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item v-for="item in items" :key="item.title" link :to="{path: '/' + item.route}">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -27,7 +27,7 @@
       </v-list>
     </v-navigation-drawer>
 
-     <!-- * bar superior * -->
+    <!-- * bar superior * -->
 
     <v-app-bar color="#fcb69f" dark src="https://picsum.photos/1920/1080?random">
       <template v-slot:img="{ props }">
@@ -61,8 +61,16 @@ export default {
       key: "value",
       showDrawer: false,
       items: [
-        { title: "Home", icon: "mdi-puzzle-edit-outline" },
-        { title: "About", icon: "mdi-puzzle-edit-outline" },
+        {
+          title: "Dashboard",
+          icon: "mdi-puzzle-edit-outline",
+          route: "dashboard",
+        },
+        {
+          title: "Projetos",
+          icon: "mdi-puzzle-edit-outline",
+          route: "formProjeto",
+        },
         { title: "Sair", icon: "mdi-puzzle-edit-outline" },
       ],
     };
