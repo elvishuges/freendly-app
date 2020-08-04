@@ -3,55 +3,100 @@
 <template>
   <v-container>
     <v-flex xs12>
+      {{fileInput}}
       <v-card elevation="0">
         <v-card-text>
           <v-card-title>
-            <v-icon large left></v-icon>
-            <span>Dados projeto</span>
+            <span class="font-weight-medium">Dados projeto (1/4)</span>
           </v-card-title>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-container>
               <v-row>
-                <v-col>
+                <v-col class="pt-0 pb-0">
                   <v-text-field v-model="nome" :rules="nomeRules" label="Nome" required outlined></v-text-field>
                 </v-col>
                 <v-col class="pt-0 pb-0" cols="12">
-                  <v-textarea outlined maxlength="100" counter v-model="value" color="teal">
+                  <v-textarea
+                    outlined
+                    :rules="descricaoRules"
+                    maxlength="100"
+                    counter
+                    v-model="descricaoProjeto"
+                  >
                     <template v-slot:label>
                       <div>
-                        Descriçãp
+                        Descrição
                         <small>(Breve)</small>
                       </div>
                     </template>
                   </v-textarea>
                 </v-col>
+                <v-col cols="12">
+                  <v-combobox
+                    v-model="selectedItensLinguagens"
+                    :items="itensLinguagens"
+                    :rules="linguagensRules"
+                    label="Linguagens de programação"
+                    multiple
+                    outlined
+                    chips
+                  >
+                    <template v-slot:selection="data">
+                      <v-chip
+                        :key="JSON.stringify(data.item)"
+                        v-bind="data.attrs"
+                        :input-value="data.selected"
+                        :disabled="data.disabled"
+                        @click:close="data.parent.selectItem(data.item)"
+                      >
+                        <v-avatar
+                          class="accent white--text"
+                          left
+                          v-text="data.item.slice(0, 1).toUpperCase()"
+                        ></v-avatar>
+                        {{ data.item }}
+                      </v-chip>
+                    </template>
+                  </v-combobox>
+                </v-col>
+
                 <v-col class="pt-0 pb-0" cols="12" sm="6">
-                  <v-text-field label="Salário/Semana" outlined value="10.00" prefix="$"></v-text-field>
+                  <v-text-field
+                    label="Salário (R$)"
+                    outlined
+                    prepend-icon
+                    v-model="salarioBase"
+                    :rules="iSal_BaseRules"
+                    v-money="money"
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col class="pt-0 pb-0" cols="12" sm="6">
                   <v-text-field
                     v-model="numEncontros"
                     outlined
+                    :rules="encontrosRules"
                     type="number"
-                    label="Encontro semanais"
-                    @click:append-outer="increment"
-                    @click:prepend="decrement"
+                    editable
+                    label="Encontro(s) semanais"
                   ></v-text-field>
                 </v-col>
-                <v-col>
-                  <v-text-field v-model="nome" :rules="nomeRules" label="Linguagens de programação" required outlined></v-text-field>
+                <v-col class="pt-0 pb-0" cols="12" >
+                  <v-file-input
+                    v-model="fileInput"
+                    @change="onFileChange($event)"
+                    :rules="fileInputRules"
+                    outlined
+                    type="file"
+                    accept="image/*"
+                    label="Imagem"
+                  ></v-file-input>
                 </v-col>
               </v-row>
             </v-container>
-            <v-card-actions>
+            <v-card-actions class="pt-0 pb-0"  >
               <v-spacer></v-spacer>
-              <v-btn
-                large
-                :rounded="false"
-                dark
-                color="blue-grey darken-1"
-                @click="validate"
-              >Cadastrar</v-btn>
+              <v-btn large :rounded="false" dark color="primary" @click="validateForm">Cadastrar</v-btn>
             </v-card-actions>
           </v-form>
         </v-card-text>
@@ -59,7 +104,6 @@
     </v-flex>
   </v-container>
 </template>
-
 
 <style>
 .login {
@@ -71,67 +115,99 @@
 </style>
 
 <script>
+import { VMoney } from "v-money";
+//import VuetifyMoney from "vuetify-money";
+
 export default {
   name: "login",
+  directives: { money: VMoney },
   data() {
     return {
       nome: "freendly socket",
+      itensLinguagens: ["React Native", "nodejs", "Vue js", "GraphQL"],
+      selectedItensLinguagens: [],
       sobreNome: "",
+      descricaoProjeto: "",
       numEncontros: 0,
       nick: "cityslicka",
       nomeEmpresa: "",
       bio: "teste",
       idioma: "",
       pais: "",
-      value: "",
       custom: true,
       email: "",
       senha: "",
       valid: true,
+      moneyValue: 50,
+      salarioBase: "5000",
+      fileInput:null,
+      money: {
+        decimal: ",",
+        max: 100,
+        error: false,
+        precision: 2,
+        masked: false /* doesn't work with directive */,
+      },
+
+      url: null,
+      imageSrc: {
+        type: '',
+        required: true,
+      },
 
       nomeRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+        (v) => !!v || "Sua Projeto deve possuir um nome",
+        (v) => (v && v.length <= 13) || "Nome deve ter menos de 14 caracteres",
       ],
-      emailRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      descricaoRules: [(v) => !!v || "Seu projeto deve possuir uma descrição"],
+      linguagensRules: [
+        (v) =>
+          !!v.length ||
+          "Seu projeto deve possuir alguma linguagem para o desenvolvimento",
+        (v) => (v && v.length <= 4) || "Apenas 4 itens por projetos",
       ],
-      nikRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      iSal_BaseRules: [
+        //(v) => !!v || "Salario base es requerido",
+        (v) => v.length < 7 || "Este campo deve ter menos de 6 digitos",
+        (v) =>
+          this.validarSalario(v) ||
+          "Salario deve ser superior a 0 e inferior o igual a 100 R$",
       ],
-      nomeEmpresaRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      encontrosRules: [
+        (v) => !!v || "Error Dado obrigatório ",
+        (v) => v >= 0 || "Error",
+        (v) => v <= 5 || "Deve ter menos que 6 reuniões semanais",
+      ],
+      fileInputRules: [
+        (v) => !!v || "Imagem obrigatória",
       ],
     };
   },
-  computed: {
-    progress() {
-      return Math.min(100, this.value.length * 10);
-    },
-    color() {
-      return ["error", "warning", "success"][Math.floor(this.progress / 40)];
-    },
-  },
+  computed: {},
   methods: {
-    increment() {
-      this.foo = parseInt(this.foo, 10) + 1;
-    },
-    decrement() {
-      this.foo = parseInt(this.foo, 10) - 1;
-    },
-    login: function () {
-      this.$router.push("/login");
+
+    cadastrarProjeto(){
+
     },
 
-    register: function () {
-      this.$router.push("/register");
+    validateForm(){
+
     },
-    validate() {
-      this.$refs.form.validate();
+
+    validarSalario(salario) {
+      var replacedSalario = salario.replace(",", "."); // subst "," por "."
+      if (replacedSalario > 100 || replacedSalario == 0) {
+        return false;
+      }
+      return true;
     },
+
+    onFileChange(e) {
+      if(e){
+      this.url = window.URL.createObjectURL(e);
+      }
+    },
+
   },
 };
 </script>
