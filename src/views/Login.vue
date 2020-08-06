@@ -61,7 +61,7 @@
                 <v-btn @click="login()" block dark color="blue-grey" >Login</v-btn>
               </v-card-actions>
               <v-card-actions>
-                <v-btn @click="register()" dark block color="light-blue darken-4" >Register</v-btn>
+                <v-btn @click="clickButton()" dark block color="light-blue darken-4" >Register</v-btn>
               </v-card-actions>
           </v-card>
           <v-alert :value="alert" color="red">{{msg}}</v-alert>
@@ -82,6 +82,7 @@
 </style>
 
 <script>
+//var socket = io.connect('http://localhost:3000');
 import { AUTH_REQUEST } from "./../store/actions/auth";
 export default {
   name: "login",
@@ -91,7 +92,9 @@ export default {
       password: "cityslicka",
       loading:false,
       msg:"",
-      alert:false
+      alert:false,
+      isConnected: false,
+      socketMessage: ''
     };
   },
   methods: {
@@ -104,7 +107,24 @@ export default {
 
     register : function () {
       this.$router.push("/register");
-    }
-  }
+    },
+    clickButton: function () {
+            // $socket is socket.io-client instance
+            console.log('click button')
+            this.$socket.emit('authenticate', 'teste')
+        }
+  },
+    sockets: {
+        connect: function () {
+            console.log('socket connected')
+        },
+        customEmit: function () {
+            console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+        },
+
+    },
+
+
+
 };
 </script>
