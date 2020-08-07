@@ -11,7 +11,7 @@ const ifNotAuthenticated = (to, from, next) => {
     next();
     return;
   }
-  next("/homePage");
+  next("/dashboard");
 };
 
 // const ifAuthenticated = (to, from, next) => {

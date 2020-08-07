@@ -82,7 +82,6 @@
 </style>
 
 <script>
-//var socket = io.connect('http://localhost:3000');
 import { AUTH_REQUEST } from "./../store/actions/auth";
 export default {
   name: "login",
@@ -118,13 +117,11 @@ export default {
         connect: function () {
             console.log('socket connected')
         },
-        customEmit: function () {
-            console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
-        },
+        message: function(params) {
+          console.log('socket message',params)
+        }
 
     },
-
-
 
 };
 </script>

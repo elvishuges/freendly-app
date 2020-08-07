@@ -31,7 +31,7 @@ import {
             // example with axios
             // axios.defaults.headers.common['Authorization'] = resp.token
             commit(AUTH_SUCCESS, resp);
-           // dispatch(USER_REQUEST);
+            //dispatch(USER_REQUEST);
             resolve(resp);
           })
           .catch(err => {

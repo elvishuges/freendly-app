@@ -24,6 +24,14 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item @click="logout()" >
+          <v-list-item-icon>
+            <v-icon>mdi-puzzle-edit-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -52,6 +60,7 @@
 </template>
 
 <script>
+import { AUTH_LOGOUT } from "./../../store/actions/auth";
 export default {
   props: {
     openDrawer: { type: Boolean },
@@ -71,14 +80,15 @@ export default {
           icon: "mdi-puzzle-edit-outline",
           route: "formProjeto",
         },
-        { title: "Sair", icon: "mdi-puzzle-edit-outline" },
       ],
     };
   },
-  computed: {
-    hideDrawer() {
-      return this.openDrawer;
-    },
+  methods: {
+    logout() {
+      this.$store.dispatch(AUTH_LOGOUT).then(() => {
+        this.$router.push("/login");
+      });
+  },
   },
 
   mounted() {},
