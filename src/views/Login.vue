@@ -61,7 +61,7 @@
                 <v-btn @click="login()" block dark color="blue-grey" >Login</v-btn>
               </v-card-actions>
               <v-card-actions>
-                <v-btn @click="clickButton()" dark block color="light-blue darken-4" >Register</v-btn>
+                <v-btn @click="register()" dark block color="light-blue darken-4" >Register</v-btn>
               </v-card-actions>
           </v-card>
           <v-alert :value="alert" color="red">{{msg}}</v-alert>
@@ -87,8 +87,8 @@ export default {
   name: "login",
   data() {
     return {
-      username: "eve.holt@reqres.in",
-      password: "cityslicka",
+      username: "elvis@hotmail.com",
+      password: "123",
       loading:false,
       msg:"",
       alert:false,
@@ -101,6 +101,8 @@ export default {
       const { username, password } = this;
       this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
         this.$router.push("/dashboard");
+      }).catch(()=>{
+        console.log('#catch login#');
       });
     },
 
@@ -113,15 +115,6 @@ export default {
             this.$socket.emit('authenticate', 'teste')
         }
   },
-    sockets: {
-        connect: function () {
-            console.log('socket connected')
-        },
-        message: function(params) {
-          console.log('socket message',params)
-        }
-
-    },
 
 };
 </script>
