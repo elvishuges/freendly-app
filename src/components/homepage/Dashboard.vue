@@ -2,7 +2,7 @@
   <div>
     <Projetos />
     <v-row>
-      <v-flex xs12 sm9 md9>
+      <v-flex xs12 sm8 md8>
         <v-container class="pl-8 pb-0 pt-0 pr-6">
             <v-tabs v-model="tab"  >
               <v-tab v-for="item in items" :key="item.tab">{{ item.name }}</v-tab>
@@ -16,7 +16,7 @@
             </v-tabs-items>
         </v-container>
       </v-flex>
-      <v-flex xs12 sm3 md3>
+      <v-flex xs12 sm4 md4>
         <Propostas />
       </v-flex>
     </v-row>

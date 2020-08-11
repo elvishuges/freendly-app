@@ -88,7 +88,7 @@
                   :rounded="false"
                   dark
                   color="blue-grey darken-1"
-                  @click="validate"
+                  @click="submit"
                 >Cadastrar</v-btn>
               </v-card-actions>
             </v-form>
@@ -110,6 +110,8 @@
 </style>
 
 <script>
+import service from "./../services/commonUser.service";
+
 export default {
   name: "login",
   data() {
@@ -148,13 +150,23 @@ export default {
     login: function () {
       this.$router.push("/login");
     },
-
     register: function () {
       this.$router.push("/register");
     },
-    validate() {
+    submit() {
       if(this.$refs.form.validate()){
         console.log('valido');
+        service.register(this.nome,this.email,this.nick,this.senha).
+        then((rsp)=>{
+            if(rsp.status == 203){ // statusText: "Non-Authoritative Information"
+              console.log('email já cadastrado');
+            }
+            if(rsp.status == 200){
+              console.log('status 200',rsp);
+            }
+        }).catch(()=>{
+
+        })
       }
     },
   },

@@ -2,10 +2,10 @@ import { api } from './config'
 
 export default {
 
-        login(email, password) {
+        login(email, senha) {
             var obj = {
                 email: email,
-                password: password,
+                senha: senha,
             }
             return api.post('/login', obj)
         },

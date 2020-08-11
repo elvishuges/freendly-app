@@ -3,11 +3,10 @@
 <template>
   <v-container>
     <v-flex xs12>
-      {{fileInput}}
       <v-card elevation="0">
         <v-card-text>
           <v-card-title>
-            <span class="font-weight-medium">Dados projeto (1/4)</span>
+            <span class="font-weight-medium">Criar projeto (1/4)</span>
           </v-card-title>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-container>
@@ -81,22 +80,32 @@
                     label="Encontro(s) semanais"
                   ></v-text-field>
                 </v-col>
-                <v-col class="pt-0 pb-0" cols="12" >
+                <v-col class="pt-0 pb-0" cols="12">
                   <v-file-input
-                    v-model="fileInput"
+                    v-model="fileInputModel"
                     @change="onFileChange($event)"
                     :rules="fileInputRules"
                     outlined
+                    id="image"
+                    ref="uploadInput"
                     type="file"
+                    name="file"
                     accept="image/*"
                     label="Imagem"
                   ></v-file-input>
                 </v-col>
+             <v-col class="pt-0 pb-0" cols="12">
+                <v-checkbox
+                  v-model="checkAtivo"
+                  label="Projeto ativo "
+                  required
+                ></v-checkbox>
+             </v-col>
               </v-row>
             </v-container>
-            <v-card-actions class="pt-0 pb-0"  >
+            <v-card-actions class="pt-0 pb-0">
               <v-spacer></v-spacer>
-              <v-btn large :rounded="false" dark color="primary" @click="validateForm">Cadastrar</v-btn>
+              <v-btn large :rounded="false" dark color="primary" @click="cadastrarProjeto">Cadastrar</v-btn>
             </v-card-actions>
           </v-form>
         </v-card-text>
@@ -116,31 +125,26 @@
 
 <script>
 import { VMoney } from "v-money";
-//import VuetifyMoney from "vuetify-money";
+import registeredUserService from "./../../services/registeredUser.service";
 
 export default {
   name: "login",
   directives: { money: VMoney },
   data() {
     return {
-      nome: "freendly socket",
+      checkAtivo:true,
+      nome: "freendly",
       itensLinguagens: ["React Native", "nodejs", "Vue js", "GraphQL"],
       selectedItensLinguagens: [],
-      sobreNome: "",
-      descricaoProjeto: "",
-      numEncontros: 0,
+      descricaoProjeto:
+        "Olá estamos com vagas abertas para projeto com Graphql",
+      numEncontros: 3,
       nick: "cityslicka",
-      nomeEmpresa: "",
-      bio: "teste",
-      idioma: "",
-      pais: "",
-      custom: true,
       email: "",
       senha: "",
       valid: true,
-      moneyValue: 50,
       salarioBase: "5000",
-      fileInput:null,
+      fileInputModel: null,
       money: {
         decimal: ",",
         max: 100,
@@ -150,10 +154,8 @@ export default {
       },
 
       url: null,
-      imageSrc: {
-        type: '',
-        required: true,
-      },
+      submitFormData: null,
+      file: null,
 
       nomeRules: [
         (v) => !!v || "Sua Projeto deve possuir um nome",
@@ -178,21 +180,35 @@ export default {
         (v) => v >= 0 || "Error",
         (v) => v <= 5 || "Deve ter menos que 6 reuniões semanais",
       ],
-      fileInputRules: [
-        (v) => !!v || "Imagem obrigatória",
-      ],
+      fileInputRules: [(v) => !!v || "Imagem obrigatória"],
     };
   },
   computed: {},
+
   methods: {
+    cadastrarProjeto() {
+      if (this.$refs.form.validate()) {
+        //this.file = this.$refs.uploadInput.files[0]
+        let formData = new FormData();
+        formData.append("file", this.file);
 
-    cadastrarProjeto(){
-
+        registeredUserService
+          .cadastrarProjeto(
+            this.nome,
+            this.descricaoProjeto,
+            this.salarioBase,
+            this.numEncontros,
+            this.selectedItensLinguagens,
+            this.checkAtivo,
+            formData
+          )
+          .then((rsp) => {
+            console.log("RSP CADASTRAR PROJETO", rsp);
+          });
+      }
     },
 
-    validateForm(){
-
-    },
+    validateForm() {},
 
     validarSalario(salario) {
       var replacedSalario = salario.replace(",", "."); // subst "," por "."
@@ -203,11 +219,10 @@ export default {
     },
 
     onFileChange(e) {
-      if(e){
-      this.url = window.URL.createObjectURL(e);
+      if (e) {
+        this.file = e
       }
     },
-
   },
 };
 </script>

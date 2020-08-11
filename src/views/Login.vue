@@ -35,9 +35,9 @@
               <v-form >
                 <v-text-field
                   prepend-icon="mdi-face"
-                  name="username"
-                  v-model="username"
-                  label="Login"
+                  name="email"
+                  v-model="email"
+                  label="Email"
                   type="text"
                   outlined
                   dense
@@ -45,9 +45,9 @@
 
                 ></v-text-field>
                 <v-text-field
-                  v-model="password"
+                  v-model="senha"
                   prepend-icon="mdi-lock"
-                  name="password"
+                  name="senha"
                   label="Senha"
                   type="password"
                   outlined
@@ -87,8 +87,8 @@ export default {
   name: "login",
   data() {
     return {
-      username: "elvis@hotmail.com",
-      password: "123",
+      email: "elvis@hotmail.com",
+      senha: "123",
       loading:false,
       msg:"",
       alert:false,
@@ -98,11 +98,17 @@ export default {
   },
   methods: {
     login: function() {
-      const { username, password } = this;
-      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+      const {email, senha } = this;
+      this.$store.dispatch(AUTH_REQUEST, {email, senha }).then((rsp) => {
+        if(rsp){ // true
         this.$router.push("/dashboard");
-      }).catch(()=>{
-        console.log('#catch login#');
+        }
+        else{
+          this.alert = true
+          this.msg = "email ou senha incoretos"
+        }
+      }).catch((rsp)=>{
+        console.log('Login catch',rsp);
       });
     },
 
@@ -113,7 +119,7 @@ export default {
             // $socket is socket.io-client instance
             console.log('click button')
             this.$socket.emit('authenticate', 'teste')
-        }
+    }
   },
 
 };

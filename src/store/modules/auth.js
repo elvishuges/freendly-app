@@ -5,7 +5,7 @@ import {
     AUTH_LOGOUT
   } from "../actions/auth";
   //import { USER_REQUEST } from "../actions/user";
-  import api from "./../../services/api";
+  import commonUserService from "./../../services/commonUser.service";
 
   const state = {
     token: localStorage.getItem("user-token") || "",
@@ -23,16 +23,17 @@ import {
       console.log('*User*',user);
       return new Promise((resolve, reject) => {
         commit(AUTH_REQUEST);
-        api.login(user.username,user.password)
-          .then(resp => {
-            console.log('*resp*',resp);
-            localStorage.setItem("user-token", resp.data.token);
-            // Here set the header of your ajax library to the token value.
-            // example with axios
-            // axios.defaults.headers.common['Authorization'] = resp.token
-            commit(AUTH_SUCCESS, resp);
-            //dispatch(USER_REQUEST);
-            resolve(resp);
+        commonUserService.login(user.email,user.senha)
+          .then(rsp => {
+            if(rsp.status == 200){
+              localStorage.setItem("user-token", rsp.data.token);
+              commit(AUTH_SUCCESS, rsp);
+              resolve(true);
+            }
+            if(rsp.status == 203){
+              resolve(false);
+            }
+
           })
           .catch(err => {
             commit(AUTH_ERROR, err);

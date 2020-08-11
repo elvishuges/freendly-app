@@ -4,8 +4,8 @@
        <v-card elevation="5" height="250px" class="scroll pt-0">
         <v-container>
           <v-row dense>
-            <v-col v-for="(item, i) in items" :key="i" cols="6">
-              <v-card @click="name()" elevation="3" >
+            <v-col v-for="(item, i) in items" :key="i" xs="12" cols="6">
+              <v-card @click="name()" elevation="3">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <div>
                     <v-card-title class="caption pt-0" v-text="item.title"></v-card-title>
@@ -35,7 +35,7 @@
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
-          artist: "Foster the People",
+          artist: "11111111Foster the People",
         },
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
