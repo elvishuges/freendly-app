@@ -23,10 +23,10 @@
   </div>
 </template>
 <script>
-import Projetos from "./Projetos";
-import Propostas from "./Propostas";
-import Trabalhos from "./Trabalhos";
-import Notificacoes from './Notificacoes'
+import Projetos from "./components/dashboard/Projetos";
+import Propostas from "./components/dashboard/Propostas";
+import Trabalhos from "./components/dashboard/Trabalhos";
+import Notificacoes from './components/dashboard/Notificacoes'
 
 export default {
   components: {

@@ -31,9 +31,10 @@
               <v-scale-transition>
                 <v-icon
                   v-if="active"
+                  @click="openProjectProfile(n)"
                   color="white"
                   size="48"
-                  v-text="'mdi-close-circle-outline'"
+                  v-text="'mdi-share-circle'"
                 ></v-icon>
               </v-scale-transition>
             </v-row>
@@ -56,7 +57,10 @@ export default {
   },
 
   methods: {
-    name() {},
+    openProjectProfile(n) {
+      console.log('#m projeto#',n);
+      this.$router.push({ name: 'projeto', params: { idProjeto:n }})
+    },
   },
 };
 </script>

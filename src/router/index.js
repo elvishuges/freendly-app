@@ -49,6 +49,12 @@ export default new Router({
             //beforeEnter: ifNotAuthenticated
           },
           {
+            path: '/dashboard/projeto/:idProjeto',
+            name: 'projeto',
+            component: () => import('./../components/homepage/ProjetoProfile'),
+            //beforeEnter: ifNotAuthenticated
+          },
+          {
             path: '/formProjeto',
             name: 'formProjeto',
             component: () => import('./../components/homepage/FormProjeto'),
