@@ -2,7 +2,7 @@
 
 <template>
   <v-container>
-    <v-app-bar scroll-target="#scrolling-techniques-3" app color="blue-grey darken-1" dark>
+    <v-app-bar app color="blue-grey darken-1" dark>
       <v-spacer></v-spacer>
       <v-btn target="_blank" text>
         <span class="mr-2">Freendly</span>
@@ -22,27 +22,27 @@
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-container>
                 <v-row>
-                    <v-col cols="12" class="pa-0">
-                      <v-text-field
-                        v-model="nome"
-                        dense
-                        :rules="nomeRules"
-                        label="Nome"
-                        required
-                        outlined
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" class="pa-0" >
-                      <v-text-field
-                        v-model="email"
-                        dense
-                        :rules="emailRules"
-                        label="Email"
-                        required
-                        outlined
-                      ></v-text-field>
-                    </v-col >
-                    <v-col cols="12" class="pa-0" >
+                  <v-col cols="12" class="pa-0">
+                    <v-text-field
+                      v-model="nome"
+                      dense
+                      :rules="nomeRules"
+                      label="Nome"
+                      required
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" class="pa-0">
+                    <v-text-field
+                      v-model="email"
+                      dense
+                      :rules="emailRules"
+                      label="Email"
+                      required
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" class="pa-0">
                     <v-text-field
                       v-model="nick"
                       dense
@@ -51,9 +51,9 @@
                       required
                       outlined
                     ></v-text-field>
-                    </v-col >
+                  </v-col>
 
-                  <v-col  cols="12" sm="6" class="pl-1 pt-0 pr-1">
+                  <v-col cols="12" sm="6" class="pl-1 pt-0 pr-1">
                     <v-text-field
                       v-model="senha"
                       ref="password"
@@ -76,7 +76,6 @@
                       outlined
                     ></v-text-field>
                   </v-col>
-
                 </v-row>
               </v-container>
               <v-card-actions>
@@ -94,6 +93,7 @@
             </v-form>
           </v-card-text>
         </v-card>
+        <v-alert :value="alert" color="red">{{msg}}</v-alert>
       </v-flex>
     </v-layout>
   </v-container>
@@ -110,17 +110,19 @@
 </style>
 
 <script>
-import service from "./../services/commonUser.service";
+import { AUTH_REGISTER_REQUEST } from "./../store/actions/auth";
 
 export default {
   name: "login",
   data() {
     return {
+      msg: "",
+      alert: false,
       nome: "Elvis Huges",
       nick: "Elvinho",
       email: "elvis@hotmail.com",
       senha: "",
-      confirmeSenha:"",
+      confirmeSenha: "",
       valid: true,
 
       nomeRules: [
@@ -140,11 +142,10 @@ export default {
         (v) => (v && v.length < 20) || "Senha deve ter menos de 20 caracteres",
       ],
       confirmeSenhaRules: [
-        (value) => !!value || 'Campo obrigatório',
-        (value) =>
-          value === this.senha || 'A senha confirmada não coincide.',
-      ]
-    }
+        (value) => !!value || "Campo obrigatório",
+        (value) => value === this.senha || "A senha confirmada não coincide.",
+      ],
+    };
   },
   methods: {
     login: function () {
@@ -154,19 +155,27 @@ export default {
       this.$router.push("/register");
     },
     submit() {
-      if(this.$refs.form.validate()){
-        console.log('valido');
-        service.register(this.nome,this.email,this.nick,this.senha).
-        then((rsp)=>{
-            if(rsp.status == 203){ // statusText: "Non-Authoritative Information"
-              console.log('email já cadastrado');
-            }
-            if(rsp.status == 200){
-              console.log('status 200',rsp);
-            }
-        }).catch(()=>{
+      if (this.$refs.form.validate()) {
+        const { nome, nick, email, senha } = this;
+        this.alert = false;
+        this.msg = "";
 
-        })
+        this.$store
+          .dispatch(AUTH_REGISTER_REQUEST, { nome, nick, email, senha })
+          .then((rsp) => {
+            if (rsp) { // true
+              this.$router.push("/dashboard");
+            } else { // false
+              console.log("email já cadastrado");
+              this.alert = true;
+              this.msg = "email já cadastrado";
+            }
+          })
+          .catch((rsp) => {
+            this.alert = true;
+            this.msg = rsp;
+            console.log("Login catch", rsp);
+          });
       }
     },
   },

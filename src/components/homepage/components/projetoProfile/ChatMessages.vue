@@ -1,7 +1,7 @@
 <template>
   <v-card  ref="chat" height="350px" class="scroll" flat>
                 <v-col cols="10" :key="i" v-for="(item, i) in listMessages">
-                  <v-card max-width="100%" class="pa-0 ma-0">
+                  <v-card :color="item.myMessage ? 'green lighten-4' : ''" max-width="100%" class="pa-0 ma-0">
                     <v-card-text class="font-weight-medium">
                       {{item.text}}
                       <v-row justify="end">
@@ -10,16 +10,16 @@
                     </v-card-text>
                   </v-card>
                 </v-col>
-                 <v-col xs="12">
+                 <!-- <v-col xs="12">
                   <v-row justify="end" align="end">
-                    <v-card :color="$vuetify.theme.dark ? '' : 'green lighten-4'">
+                    <v-card :color="item.myMessage ? 'green lighten-4' : ''">
                       <v-card-text class="font-weight-medium">
-                        <span>tripnu pattiya nalla places athokkeyanu ?</span>
+                        <span>{{item.text}}</span>
                         <v-row justify="end"><span class="ml-4 px-1 caption grey--text">2:25pm</span></v-row>
                       </v-card-text>
                     </v-card>
                   </v-row>
-                </v-col>
+                </v-col> -->
               </v-card>
 </template>
 

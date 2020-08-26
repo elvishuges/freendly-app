@@ -43,7 +43,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="2" class="pl-3">
-                <v-btn @click="sendMessage(inputChatText)" class="ma-2" text icon>
+                <v-btn :disabled="inputChatText === ''" @click="sendMessage(inputChatText)" class="ma-2" text icon>
                   <v-icon>mdi-send</v-icon>
                 </v-btn>
               </v-col>
@@ -79,7 +79,7 @@ export default {
           content: "Participante",
         },
       ],
-      messages: [{ text: "messagem do pai 1" }, { text: "messagem do pai 2" }],
+      messages: [],
     };
   },
   sockets: {
@@ -103,10 +103,12 @@ export default {
   },
   methods: {
     sendMessage(message) {
-      let msg = { text: message };
+      let msg = { text: message ,myMessage: true };
       let socketMessage = { usr: 2, msg: message };
-      this.$socket.emit("chat", socketMessage);
       this.messages.push(msg);
+      this.inputChatText = ""
+      this.$socket.emit("chat", socketMessage);
+
     },
     addMessagesTeste() {
       setInterval(() => {
