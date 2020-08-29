@@ -1,7 +1,7 @@
 <template>
   <v-card  ref="chat" height="350px" class="scroll" flat>
-                <v-col cols="10" :key="i" v-for="(item, i) in listMessages">
-                  <v-card :color="item.myMessage ? 'green lighten-4' : ''" max-width="100%" class="pa-0 ma-0">
+                <v-col :key="i" v-for="(item, i) in listMessages">
+                  <v-card :color="item.myMessage ? 'green lighten-4' : ''" width="100%" >
                     <v-card-text class="font-weight-medium">
                       {{item.text}}
                       <v-row justify="end">
@@ -10,17 +10,7 @@
                     </v-card-text>
                   </v-card>
                 </v-col>
-                 <!-- <v-col xs="12">
-                  <v-row justify="end" align="end">
-                    <v-card :color="item.myMessage ? 'green lighten-4' : ''">
-                      <v-card-text class="font-weight-medium">
-                        <span>{{item.text}}</span>
-                        <v-row justify="end"><span class="ml-4 px-1 caption grey--text">2:25pm</span></v-row>
-                      </v-card-text>
-                    </v-card>
-                  </v-row>
-                </v-col> -->
-              </v-card>
+  </v-card>
 </template>
 
 <script>

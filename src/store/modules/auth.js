@@ -11,7 +11,7 @@ import {
 
   const state = {
     token: localStorage.getItem("user-token") || "",
-    usuario: {},
+    usuario: { id:"" },
     status: "",
     hasLoadedOnce: false
   };
@@ -89,8 +89,8 @@ import {
     },
     [AUTH_SUCCESS]: (state, resp) => {
       state.status = "success";
-      state.token = resp.token;
-      state.usuario.id = resp.userId
+      state.token = resp.data.token;
+      state.usuario.id = resp.data.userId
       state.hasLoadedOnce = true;
     },
     [AUTH_ERROR]: state => {

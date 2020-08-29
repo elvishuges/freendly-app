@@ -69,6 +69,7 @@ export default {
     return {
       inset: false,
       tab: null,
+      userId:0,
       inputChatText: "",
       items: [
         { tab: 0, isChat: true, title: "Chat", content: "ChatMessages" },
@@ -92,20 +93,23 @@ export default {
     },
     //Fired when the server sends something on the "messageChannel" channel.
     chatChannel(data) {
-      let serverMessage = { text: data.msg };
+      let serverMessage = { text: data.text, myMessage: false };
       this.messages.push(serverMessage);
-      this.socketMessage = data;
     },
   },
   mounted() {
     //this.addMessagesTeste();
-    //this.$socket.emit('onProjectPage', 1) // 1 de teste para id do usuário mas seria user.id
+    //console.log("USUARIO DADOS",this.$store.state.auth.usuario);
+    this.userId =  this.$store.state.auth.usuario.id
+    this.$socket.emit('onProjectPage',this.userId) // enviar ad para servidor saber que este user entrou
   },
   methods: {
     sendMessage(message) {
-      let msg = { text: message ,myMessage: true };
-      let socketMessage = { usr: 2, msg: message };
-      this.messages.push(msg);
+      let myMessage = { text: message ,myMessage: true };
+
+      // manda para o usuário de id 11
+      let socketMessage = { usr: 17 , text: message };
+      this.messages.push(myMessage);
       this.inputChatText = ""
       this.$socket.emit("chat", socketMessage);
 
@@ -117,14 +121,8 @@ export default {
       }, 2000);
     },
   },
-  computed: {},
-  watch: {
-    messages() {
-      setTimeout(() => {
-        this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
-      }, 0);
-    },
-  },
+  computed: {  },
+  watch: {  },
   created() {
     console.log("creted", this.$route.params.idProjeto);
   },
