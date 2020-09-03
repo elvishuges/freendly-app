@@ -1,4 +1,4 @@
-import { api } from './config'
+import request from './request'
 
 export default {
 
@@ -7,7 +7,13 @@ export default {
                 email: email,
                 senha: senha,
             }
-            return api.post('/login', obj)
+
+            return request({
+                url: '/login',
+                method: 'post',
+                data : obj
+              })
+
         },
         register(nome, email, nick, senha) {
             var obj = {
@@ -16,7 +22,11 @@ export default {
                 nick: nick,
                 senha: senha,
             }
-            return api.post('/register', obj)
+            return request({
+                url: '/register',
+                method: 'post',
+                data : obj
+            })
         },
 
 }

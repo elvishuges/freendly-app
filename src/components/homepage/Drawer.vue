@@ -10,8 +10,8 @@
     >
       <v-list-item class="grey lighten-4">
         <v-list-item-content>
-          <v-list-item-title class="title light-blue--text">Software tears</v-list-item-title>
-          <v-list-item-subtitle class="light-blue--text">subtext</v-list-item-subtitle>
+          <v-list-item-title class="title light-blue--text">{{this.$store.state.user.empresa.nome}}</v-list-item-title>
+          <v-list-item-subtitle class="light-blue--text">{{this.$store.state.user.empresa.descricao}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -61,6 +61,8 @@
 
 <script>
 import { AUTH_LOGOUT } from "./../../store/actions/auth";
+import { CLEAN_COMPANY_DATE } from "./../../store/actions/user";
+
 export default {
   props: {
     openDrawer: { type: Boolean },
@@ -85,9 +87,12 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch(AUTH_LOGOUT).then(() => {
-        this.$router.push("/login");
+      this.$store.dispatch(CLEAN_COMPANY_DATE).then(() => {
+        this.$store.dispatch(AUTH_LOGOUT).then(() => {
+          this.$router.push("/login");
+        });
       });
+
   },
   },
 

@@ -1,4 +1,4 @@
-import { api } from './config'
+import request from './request'
 
 export default {
 
@@ -14,7 +14,32 @@ export default {
                 ativo:ativo,
                 file: Imagem,
             }
-            return api.post('/cadastrarProjeto', obj)
+            return request({
+                url: '/cadastrarProjeto',
+                method: 'post',
+                data : obj
+            })
+        },
+
+        numProjetosCriados(nome, descricao,salario){
+            var obj = {
+                nome: nome,
+                descricao: descricao,
+                salario: salario,
+            }
+            return request({
+                url: '/numCreatedProjectByUser',
+                method: 'get',
+                data : obj
+            })
+        },
+
+        getEmpresa(userId){
+
+            return request({
+                url: `/user/${userId}/empresa/`,
+                method: 'get',
+            })
         },
 
 

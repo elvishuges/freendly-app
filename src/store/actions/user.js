@@ -1,3 +1,2 @@
-export const USER_REQUEST = "USER_REQUEST";
-export const USER_SUCCESS = "USER_SUCCESS";
-export const USER_ERROR = "USER_ERROR";
+export const SET_COMPANY_DATE = "USER_REQUEST";
+export const CLEAN_COMPANY_DATE = "CLEAN_COMPANY_DATE";

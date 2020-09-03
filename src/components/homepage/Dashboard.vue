@@ -23,6 +23,9 @@
   </div>
 </template>
 <script>
+import registeredUserService from "./../../services/registeredUser.service";
+import {SET_COMPANY_DATE} from "../../store/actions/user";
+
 import Projetos from "./components/dashboard/Projetos";
 import Propostas from "./components/dashboard/Propostas";
 import Trabalhos from "./components/dashboard/Trabalhos";
@@ -48,11 +51,24 @@ export default {
   },
 
   mounted() {
-    console.log("*mounted dash*");
+    registeredUserService.getEmpresa(1).then((rsp)=>{
+        this.setDadosEmpresa(rsp.data.msg[0])
+    }).catch((error)=>{
+        console.log("Error Catch",error);
+    })
   },
 
   methods: {
-    name() {},
+    setDadosEmpresa(dados) {
+      this.$store
+        .dispatch(SET_COMPANY_DATE, dados)
+        .then((rsp) => {
+           console.log("# setDadosEmpresa sucess #",rsp);
+        })
+        .catch((rsp) => {
+          console.log("setDadosEmpresa catch", rsp);
+        });
+    },
   },
 };
 </script>

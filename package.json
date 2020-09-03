@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "js-cookie": "^2.2.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "v-money": "^0.8.1",

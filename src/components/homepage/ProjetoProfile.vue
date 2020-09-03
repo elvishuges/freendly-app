@@ -101,7 +101,7 @@ export default {
     //this.addMessagesTeste();
     //console.log("USUARIO DADOS",this.$store.state.auth.usuario);
     this.userId =  this.$store.state.auth.usuario.id
-    this.$socket.emit('onProjectPage',this.userId) // enviar ad para servidor saber que este user entrou
+    this.$socket.emit('onProjectPage',this.userId) // enviar id para servidor saber que este user entrou
   },
   methods: {
     sendMessage(message) {

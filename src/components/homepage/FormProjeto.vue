@@ -204,7 +204,10 @@ export default {
           )
           .then((rsp) => {
             console.log("RSP CADASTRAR PROJETO", rsp);
-          });
+          }).catch((rsp) => {
+
+          console.log("Cadastrar Projeto catch", rsp);
+        });
       }
     },
 

@@ -6,11 +6,13 @@ import {
     AUTH_SUCCESS,
     AUTH_LOGOUT
   } from "../actions/auth";
-  //import { USER_REQUEST } from "../actions/user";
+
+  import { getToken, setToken, removeToken } from '../utils/token'
   import commonUserService from "./../../services/commonUser.service";
 
+
   const state = {
-    token: localStorage.getItem("user-token") || "",
+    token: getToken(),
     usuario: { id:"" },
     status: "",
     hasLoadedOnce: false
@@ -18,19 +20,21 @@ import {
 
   const getters = {
     isAuthenticated: state => !!state.token,
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    token: state => state.token,
   };
 
   const actions = {
-    [AUTH_LOGIN_REQUEST]: ({ commit }, user) => {
-      console.log('*User*',user);
+    [AUTH_LOGIN_REQUEST]: ({ commit }, payload) => {
+      console.log('#PAYLOAD LOGIN#',payload);
       return new Promise((resolve, reject) => {
         commit(AUTH_REQUEST);
-        commonUserService.login(user.email,user.senha)
+        commonUserService.login(payload.email,payload.senha)
           .then(rsp => {
             console.log("#RSP LOGIN#",rsp);
             if(rsp.status == 200){
-              localStorage.setItem("user-token", rsp.data.token);
+              setToken(rsp.data.token)
+              //localStorage.setItem("user-token", rsp.data.token);
               commit(AUTH_SUCCESS, rsp);
               resolve(true);
             }
@@ -41,17 +45,16 @@ import {
           })
           .catch(err => {
             commit(AUTH_ERROR, err);
-            localStorage.removeItem("user-token");
             reject(err);
           });
       });
     },
 
-    [AUTH_REGISTER_REQUEST]: ({ commit }, user) => {
-      console.log('*User*',user);
+    [AUTH_REGISTER_REQUEST]: ({ commit }, payload) => {
+      console.log('*PAYLOAD REGISTER*',payload);
       return new Promise((resolve, reject) => {
         commit(AUTH_REQUEST);
-        commonUserService.register(user.nome,user.email,user.nick, user.senha)
+        commonUserService.register(payload.nome,payload.email,payload.nick, payload.senha)
           .then(rsp => {
             console.log("#RSP REGIS#",rsp);
             if(rsp.status == 200){
@@ -66,7 +69,6 @@ import {
           })
           .catch(err => {
             commit(AUTH_ERROR, err);
-            localStorage.removeItem("user-token");
             reject(err);
           });
       });
@@ -76,6 +78,7 @@ import {
     [AUTH_LOGOUT]: ({ commit }) => {
       return new Promise(resolve => {
         commit(AUTH_LOGOUT);
+        removeToken()
         localStorage.removeItem("user-token");
         resolve();
       });
@@ -99,6 +102,8 @@ import {
     },
     [AUTH_LOGOUT]: state => {
       state.token = "";
+      state.usuario = {},
+      state.status = ""
     }
   };
 
