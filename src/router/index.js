@@ -8,19 +8,19 @@ Vue.use(Router);
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
-    next();
+    next("/login");
     return;
   }
-  next("/dashboard");
+  next();
 };
 
-// const ifAuthenticated = (to, from, next) => {
-//   if (store.getters.isAuthenticated) {
-//       next("/homePage");
-//     return;
-//   }
-//   next("/login");
-// };
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+      next("/dashboard");
+    return;
+  }
+  next();
+};
 
 export default new Router({
   mode: "history",
@@ -29,13 +29,13 @@ export default new Router({
       path: "/login",
       name: "Login",
       component: () => import('./../views/Login'),
-      beforeEnter: ifNotAuthenticated
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/register",
       name: "Register",
       component: () => import('./../views/Register'),
-      beforeEnter: ifNotAuthenticated
+      beforeEnter: ifAuthenticated
     },
     {
         path: "/homePage",
@@ -46,19 +46,19 @@ export default new Router({
             path: '/dashboard',
             name: 'dashboard',
             component: Dashboard,
-            //beforeEnter: ifNotAuthenticated
+            beforeEnter: ifNotAuthenticated
           },
           {
             path: '/dashboard/projeto/:idProjeto',
             name: 'projeto',
             component: () => import('./../components/homepage/ProjetoProfile'),
-            //beforeEnter: ifNotAuthenticated
+            beforeEnter: ifNotAuthenticated
           },
           {
             path: '/formProjeto',
             name: 'formProjeto',
             component: () => import('./../components/homepage/FormProjeto'),
-            //beforeEnter: ifNotAuthenticated
+            beforeEnter: ifNotAuthenticated
           },
         ]
     },

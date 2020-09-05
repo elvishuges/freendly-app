@@ -10,8 +10,8 @@
     >
       <v-list-item class="grey lighten-4">
         <v-list-item-content>
-          <v-list-item-title class="title light-blue--text">{{this.$store.state.user.empresa.nome}}</v-list-item-title>
-          <v-list-item-subtitle class="light-blue--text">{{this.$store.state.user.empresa.descricao}}</v-list-item-subtitle>
+          <v-list-item-title class="title light-blue--text">{{infoEmpresa.nome}}</v-list-item-title>
+          <v-list-item-subtitle class="light-blue--text">{{infoEmpresa.descricao}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -26,7 +26,7 @@
         </v-list-item>
         <v-list-item @click="logout()" >
           <v-list-item-icon>
-            <v-icon>mdi-puzzle-edit-outline</v-icon>
+            <v-icon>mdi-logout</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>Logout</v-list-item-title>
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { AUTH_LOGOUT } from "./../../store/actions/auth";
 import { CLEAN_COMPANY_DATE } from "./../../store/actions/user";
 
@@ -78,25 +79,35 @@ export default {
           route: "dashboard",
         },
         {
-          title: "Projetos",
-          icon: "mdi-puzzle-edit-outline",
+          title: "Projeto",
+          icon: "mdi-plus",
           route: "formProjeto",
         },
       ],
     };
   },
+  mounted() {},
   methods: {
     logout() {
-      this.$store.dispatch(CLEAN_COMPANY_DATE).then(() => {
-        this.$store.dispatch(AUTH_LOGOUT).then(() => {
-          this.$router.push("/login");
-        });
+      console.log("logout");
+      this.$store.dispatch(AUTH_LOGOUT).then(() => {
+        this.$store
+        .dispatch(CLEAN_COMPANY_DATE)
+        this.$router.push('/login')
       });
 
   },
   },
 
-  mounted() {},
+  computed: {
+
+    ...mapGetters([
+      'infoEmpresa',
+      // ...
+    ])
+  },
+
+
 };
 </script>
 

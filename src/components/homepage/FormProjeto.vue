@@ -6,9 +6,9 @@
       <v-card elevation="0">
         <v-card-text>
           <v-card-title>
-            <span class="font-weight-medium">Criar projeto (1/4)</span>
+            <span class="font-weight-medium">Criar projeto ({{createdProjects }}/4)</span>
           </v-card-title>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" enctype="multipart/form-data" method="POST" v-model="valid">
             <v-container>
               <v-row>
                 <v-col class="pt-0 pb-0">
@@ -87,7 +87,7 @@
                     :rules="fileInputRules"
                     outlined
                     id="image"
-                    ref="uploadInput"
+                    ref="files"
                     type="file"
                     name="file"
                     accept="image/*"
@@ -105,7 +105,7 @@
             </v-container>
             <v-card-actions class="pt-0 pb-0">
               <v-spacer></v-spacer>
-              <v-btn large :rounded="false" dark color="primary" @click="cadastrarProjeto">Cadastrar</v-btn>
+              <v-btn large :rounded="false" dark color="primary" @click="createProject">Cadastrar</v-btn>
             </v-card-actions>
           </v-form>
         </v-card-text>
@@ -133,6 +133,7 @@ export default {
   data() {
     return {
       checkAtivo:true,
+      createdProjects:0,
       nome: "freendly",
       itensLinguagens: ["React Native", "nodejs", "Vue js", "GraphQL"],
       selectedItensLinguagens: [],
@@ -172,7 +173,7 @@ export default {
         //(v) => !!v || "Salario base es requerido",
         (v) => v.length < 7 || "Este campo deve ter menos de 6 digitos",
         (v) =>
-          this.validarSalario(v) ||
+          this.validSalary(v) ||
           "Salario deve ser superior a 0 e inferior o igual a 100 R$",
       ],
       encontrosRules: [
@@ -183,17 +184,27 @@ export default {
       fileInputRules: [(v) => !!v || "Imagem obrigatória"],
     };
   },
-  computed: {},
+  mounted () {
+     registeredUserService
+          .getUserAmountProjects()
+          .then((rsp) => {
+            console.log("RSP QuantUserProj", rsp);
+            this.createdProjects = rsp.data.msg
+          }).catch((rsp) => {
+
+          console.log("Cadastrar Projeto catch", rsp);
+        });
+  },
 
   methods: {
-    cadastrarProjeto() {
+    createProject() {
       if (this.$refs.form.validate()) {
         //this.file = this.$refs.uploadInput.files[0]
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append("file", this.file);
 
         registeredUserService
-          .cadastrarProjeto(
+          .createProject(
             this.nome,
             this.descricaoProjeto,
             this.salarioBase,
@@ -211,19 +222,18 @@ export default {
       }
     },
 
-    validateForm() {},
-
-    validarSalario(salario) {
-      var replacedSalario = salario.replace(",", "."); // subst "," por "."
-      if (replacedSalario > 100 || replacedSalario == 0) {
+    validSalary(salario) {
+      var replacedSalary = salario.replace(",", "."); // subst "," por "."
+      if (replacedSalary > 100 || replacedSalary == 0) {
         return false;
       }
       return true;
     },
 
-    onFileChange(e) {
-      if (e) {
-        this.file = e
+    onFileChange(event) {
+      if (event) {
+        this.file = event;
+
       }
     },
   },

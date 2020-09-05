@@ -34,7 +34,6 @@ import {
             console.log("#RSP LOGIN#",rsp);
             if(rsp.status == 200){
               setToken(rsp.data.token)
-              //localStorage.setItem("user-token", rsp.data.token);
               commit(AUTH_SUCCESS, rsp);
               resolve(true);
             }
@@ -74,8 +73,8 @@ import {
       });
     },
 
-
     [AUTH_LOGOUT]: ({ commit }) => {
+      console.log('AUTH LOGOUT');
       return new Promise(resolve => {
         commit(AUTH_LOGOUT);
         removeToken()

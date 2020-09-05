@@ -4,11 +4,16 @@ import axios from 'axios'
 import { getToken, setToken } from '../store/utils/token'
 import { baseURL } from './config'
 var showAlert = true
-
 // create an axios instance
 const service = axios.create({
-  baseURL: baseURL // api base_url
+  baseURL: baseURL, // api base_url,
   // timeout: 15000 // request timeout
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'x-access-token':getToken()
+}
+
 })
 
 // request interceptor

@@ -51,24 +51,20 @@ export default {
   },
 
   mounted() {
-    registeredUserService.getEmpresa(1).then((rsp)=>{
-        this.setDadosEmpresa(rsp.data.msg[0])
+    registeredUserService.getUserCompany().then((rsp)=>{
+        console.log("RSP GETUSERCOMPANY",rsp);
+        let empresa = rsp.data.msg
+        this.$store
+        .dispatch(SET_COMPANY_DATE, empresa)
     }).catch((error)=>{
         console.log("Error Catch",error);
     })
   },
 
   methods: {
-    setDadosEmpresa(dados) {
-      this.$store
-        .dispatch(SET_COMPANY_DATE, dados)
-        .then((rsp) => {
-           console.log("# setDadosEmpresa sucess #",rsp);
-        })
-        .catch((rsp) => {
-          console.log("setDadosEmpresa catch", rsp);
-        });
-    },
+    name() {
+
+    }
   },
 };
 </script>
