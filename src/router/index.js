@@ -7,6 +7,7 @@ import HomePage from "./../views/HomePage";
 Vue.use(Router);
 
 const ifNotAuthenticated = (to, from, next) => {
+  console.log("ROTAAAAAAAA 1",store.getters.isAuthenticated);
   if (!store.getters.isAuthenticated) {
     next("/login");
     return;
@@ -15,6 +16,7 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
+  console.log("ROTAAAAAAAA 2",store.getters.isAuthenticated);
   if (store.getters.isAuthenticated) {
       next("/dashboard");
     return;
@@ -27,19 +29,19 @@ export default new Router({
   routes: [
     {
       path: "/login",
-      name: "Login",
+      name: "login",
       component: () => import('./../views/Login'),
       beforeEnter: ifAuthenticated
     },
     {
       path: "/register",
-      name: "Register",
+      name: "register",
       component: () => import('./../views/Register'),
       beforeEnter: ifAuthenticated
     },
     {
         path: "/homePage",
-        name: "HomePage",
+        name: "homePage",
         component: HomePage,
         children: [
           {

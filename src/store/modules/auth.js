@@ -8,7 +8,7 @@ import {
   } from "../actions/auth";
 
   import { getToken, setToken, removeToken } from '../utils/token'
-  import commonUserService from "./../../services/commonUser.service";
+  import commonUserService from "./../../services/freendly/commonUser";
 
 
   const state = {
@@ -57,7 +57,7 @@ import {
           .then(rsp => {
             console.log("#RSP REGIS#",rsp);
             if(rsp.status == 200){
-              localStorage.setItem("user-token", rsp.data.token);
+              //localStorage.setItem("user-token", rsp.data.token);
               commit(AUTH_SUCCESS, rsp);
               resolve(true);
             }
@@ -78,7 +78,7 @@ import {
       return new Promise(resolve => {
         commit(AUTH_LOGOUT);
         removeToken()
-        localStorage.removeItem("user-token");
+        //localStorage.removeItem("user-token");
         resolve();
       });
     }

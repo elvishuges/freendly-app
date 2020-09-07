@@ -125,7 +125,7 @@
 
 <script>
 import { VMoney } from "v-money";
-import registeredUserService from "./../../services/registeredUser.service";
+import registeredUserService from "./../../services/freendly/registeredUser";
 
 export default {
   name: "login",

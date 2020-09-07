@@ -1,24 +1,26 @@
-import request from './request'
+import request from './'
 
 export default {
 
         createProject(nome, descricao,salario,encontrosSemanais,
             linguagensProgramacao,ativo,
             file) {
-            // var obj = {
-            //     nome: nome,
-            //     descricao: descricao,
-            //     salario: salario,
-            //     encontrosSemanais: encontrosSemanais,
-            //     linguagens: linguagensProgramacao,
-            //     ativo:ativo,
-            // }
+                var info = {
+                    nome: nome,
+                    descricao: descricao,
+                    salario: salario,
+                    encontrosSemanais: encontrosSemanais,
+                    linguagens: linguagensProgramacao,
+                    ativo:ativo,
+                }
 
             return request.post("/createProject", file, {
                 headers: {
                   "Content-Type": "multipart/form-data"
-                }
-
+                },
+                infoImage: {
+					info: info
+				}
               });
         },
 

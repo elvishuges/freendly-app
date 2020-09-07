@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import registeredUserService from "./../../services/registeredUser.service";
+import registeredUserService from "./../../services/freendly/registeredUser";
 import {SET_COMPANY_DATE} from "../../store/actions/user";
 
 import Projetos from "./components/dashboard/Projetos";
