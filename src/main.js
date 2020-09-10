@@ -4,14 +4,11 @@ import vuetify from './plugins/vuetify';
 
 import router from "./router";
 import store from  './store'
-// importing the helper
 import interceptorsSetup from './helpers/freendlyInterceptor'
-//import SocketIO from 'socket.io-client'; // "socket.io-client": "^2.0.4"
-//import * as io from 'socket.io-client'
 import VueSocketIO from 'vue-socket.io';
-interceptorsSetup()
-Vue.config.productionTip = false
 
+Vue.config.productionTip = false
+interceptorsSetup()
 
 Vue.use(new VueSocketIO({
   debug: true,

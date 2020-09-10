@@ -106,7 +106,6 @@ export default {
   methods: {
     sendMessage(message) {
       let myMessage = { text: message ,myMessage: true };
-
       // manda para o usuário de id 11
       let socketMessage = { usr: 17 , text: message };
       this.messages.push(myMessage);

@@ -4,6 +4,7 @@
   <v-container>
     <v-flex xs12>
       <v-card elevation="0">
+        {{checkAtivo}}
         <v-card-text>
           <v-card-title>
             <span class="font-weight-medium">Criar projeto ({{createdProjects }}/4)</span>
@@ -192,7 +193,7 @@ export default {
             this.createdProjects = rsp.data.msg
           }).catch((rsp) => {
 
-          console.log("Cadastrar Projeto catch", rsp);
+          console.log("getUserAmountProjects catch", rsp);
         });
   },
 
@@ -215,6 +216,8 @@ export default {
           )
           .then((rsp) => {
             console.log("RSP CADASTRAR PROJETO", rsp);
+            this.createdProjects = rsp.data.msg
+            this.$refs.form.reset()
           }).catch((rsp) => {
 
           console.log("Cadastrar Projeto catch", rsp);

@@ -8,6 +8,7 @@ const freendlyApi = axios.create({
     baseURL: freendlyApiBaseURL, // service base_url,
     headers: {
       'Access-Control-Allow-Origin': '*',
+      'Accept' : 'application/json',
       'Content-Type': 'application/json',
       'x-access-token': getToken()
     }

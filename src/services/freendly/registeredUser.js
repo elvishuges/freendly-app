@@ -1,4 +1,5 @@
 import request from './'
+import { getToken } from './../../store/utils/token'
 
 export default {
 
@@ -13,14 +14,23 @@ export default {
                     linguagens: linguagensProgramacao,
                     ativo:ativo,
                 }
+                console.log("BOOLL",info)
 
             return request.post("/createProject", file, {
                 headers: {
-                  "Content-Type": "multipart/form-data"
+                  "Content-Type": "multipart/form-data",
+                  'Access-Control-Allow-Origin': '*',
+                  'Accept' : 'application/json',
+                  'x-access-token': getToken()
                 },
-                infoImage: {
-					info: info
-				}
+                params: {
+                    nome: nome,
+                    descricao: descricao,
+                    salario: salario,
+                    encontrosSemanais: encontrosSemanais,
+                    linguagens: linguagensProgramacao,
+                    ativo:ativo,
+                }
               });
         },
 
