@@ -100,7 +100,7 @@ export default {
           } else {
             console.log("RSP", rsp);
             this.alert = true;
-            this.msg = "email ou senha incoretos";
+            this.msg = "email ou senha incorretos";
           }
         })
         .catch((rsp) => {

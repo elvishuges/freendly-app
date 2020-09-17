@@ -11,8 +11,8 @@
         show-arrows
       >
         <v-slide-item
-          v-for="n in 5"
-          :key="n"
+          v-for="project in listProjects"
+          :key="project.id"
           v-slot:default="{ active, toggle }"
         >
           <v-card
@@ -23,6 +23,13 @@
             elevation="6"
             @click="toggle"
           >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            :src="`http://localhost:3000/${project.dirImagem}`"
+          >
+            <v-card-title class=" caption pt-0 text-body-1">{{project.descricao }}</v-card-title>
+          </v-img>
             <v-row
               class="fill-height"
               align="center"
@@ -49,6 +56,12 @@
 
 <script>
 export default {
+  props: {
+    listProjects: {
+      type: Array,
+      default: null
+    },
+  },
   data() {
     return {
       key: "",

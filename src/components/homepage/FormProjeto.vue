@@ -4,7 +4,7 @@
   <v-container>
     <v-flex xs12>
       <v-card elevation="0">
-        {{checkAtivo}}
+
         <v-card-text>
           <v-card-title>
             <span class="font-weight-medium">Criar projeto ({{createdProjects }}/4)</span>
@@ -186,15 +186,7 @@ export default {
     };
   },
   mounted () {
-     registeredUserService
-          .getUserAmountProjects()
-          .then((rsp) => {
-            console.log("RSP QuantUserProj", rsp);
-            this.createdProjects = rsp.data.msg
-          }).catch((rsp) => {
-
-          console.log("getUserAmountProjects catch", rsp);
-        });
+    this.getUserAmountProjects()
   },
 
   methods: {
@@ -223,6 +215,17 @@ export default {
           console.log("Cadastrar Projeto catch", rsp);
         });
       }
+    },
+    getUserAmountProjects(){
+      registeredUserService
+          .getUserAmountProjects()
+          .then((rsp) => {
+            console.log("RSP QuantUserProj", rsp);
+            this.createdProjects = rsp.data.msg
+          }).catch((rsp) => {
+
+          console.log("getUserAmountProjects catch", rsp);
+        });
     },
 
     validSalary(salario) {

@@ -36,7 +36,7 @@ export default {
 
         getUserAmountProjects(){
             return request({
-                url: '/user/projects',
+                url: '/user/amountProjects',
                 method: 'get',
             })
         },
@@ -44,6 +44,12 @@ export default {
         getUserCompany(){
             return request({
                 url: '/user/company/',
+                method: 'get',
+            })
+        },
+        getUserProjects(){
+            return request({
+                url: '/user/projects/',
                 method: 'get',
             })
         },
