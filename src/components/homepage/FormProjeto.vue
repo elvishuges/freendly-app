@@ -135,13 +135,12 @@ export default {
     return {
       checkAtivo:true,
       createdProjects:0,
-      nome: "freendly",
-      itensLinguagens: ["React Native", "nodejs", "Vue js", "GraphQL"],
+      nome: "",
+      itensLinguagens: ["React Native","Java","GraphQl"],
       selectedItensLinguagens: [],
       descricaoProjeto:
-        "Olá estamos com vagas abertas para projeto com Graphql",
-      numEncontros: 3,
-      nick: "cityslicka",
+        "",
+      numEncontros: 0,
       email: "",
       senha: "",
       valid: true,
@@ -178,7 +177,7 @@ export default {
           "Salario deve ser superior a 0 e inferior o igual a 100 R$",
       ],
       encontrosRules: [
-        (v) => !!v || "Error Dado obrigatório ",
+        (v) => !!v || "Error",
         (v) => v >= 0 || "Error",
         (v) => v <= 5 || "Deve ter menos que 6 reuniões semanais",
       ],

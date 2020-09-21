@@ -3,8 +3,8 @@ import freendly from "../services/freendly";
 import { getToken } from '../store/utils/token'
 import { AUTH_LOGOUT } from "./../store/actions/auth";
 import { CLEAN_COMPANY_DATE } from "./../store/actions/user";
-// //import  router from './../router';
-import  store from './../store';
+import  router from './../router';
+import store from './../store';
 var showAlert = true
 export default function setup() {
 
@@ -17,24 +17,26 @@ export default function setup() {
     // Do something with request error
     console.log('request', error) // for debug
     Promise.reject(error)
-   });
+  });
 
-   freendly.interceptors.response.use((response) => {
+  freendly.interceptors.response.use((response) => {
     // Do something with response data
     return response;
-  },(error) => {
+  }, (error) => {
     // Do something with response error
-     var err = String(error)
+    var err = String(error)
 
-     if (err.includes('Network')) {
-            store.dispatch(AUTH_LOGOUT).then(() => {
-                  store.dispatch(CLEAN_COMPANY_DATE)
-            });
-          if (showAlert) {
-            alert('Não foi possível conectar ao servidor. Tente novamente mais tarde.')
-           // window.location.reload()
-          }
+    if (err.includes('Network') || err.status === 401 ) {
+      store.dispatch(AUTH_LOGOUT).then(() => {
+        store.dispatch(CLEAN_COMPANY_DATE)
+      });
+      router.push("/login");
+
+      if (showAlert) {
+        alert('Não foi possível conectar ao servidor. Tente novamente mais tarde.')
+        // window.location.reload()
       }
+    }
     throw error;
   });
 

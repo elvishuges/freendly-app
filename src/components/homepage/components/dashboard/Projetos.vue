@@ -3,7 +3,7 @@
 <p class="headline font-weight-regular pl-4 pt-4">Projetos</p>
 <v-row align="center"
       justify="center">
-
+      
       <v-slide-group
         v-model="model"
         class="pa-0"
@@ -16,7 +16,7 @@
           v-slot:default="{ active, toggle }"
         >
           <v-card
-            :color="active ? 'primary' : 'grey lighten-1'"
+            :color="active ? 'black' : 'grey lighten-1'"
             class="ma-4"
             height="200"
             width="200"
@@ -28,7 +28,7 @@
             height="200px"
             :src="`http://localhost:3000/${project.dirImagem}`"
           >
-            <v-card-title class=" caption pt-0 text-body-1">{{project.descricao }}</v-card-title>
+            <v-card-title class=" caption pt-0 title">{{project.nome }}</v-card-title>
           </v-img>
             <v-row
               class="fill-height"
@@ -48,6 +48,43 @@
           </v-card>
         </v-slide-item>
       </v-slide-group>
+      <div v-if="!listProjects.length"> 
+         <v-card
+            color="primary"
+            class="ma-4"
+            height="200"
+            @click="goCreateProject()" 
+            width="200"
+            elevation="6"
+          >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+          >
+            <v-card-title
+             
+             class=" caption pt-0 title"
+             >Crie seu Primeiro projeto...</v-card-title>
+          </v-img>
+            <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+            >
+              <v-scale-transition>
+                <v-icon
+                  v-if="true"   
+                                
+                  color="white"
+                  size="48"
+                  v-text="'mdi-share-circle'"
+                ></v-icon>
+              </v-scale-transition>
+            </v-row>
+          </v-card>
+
+      </div>
+      
     </v-row>
     </div>
 
@@ -73,6 +110,10 @@ export default {
     openProjectProfile(n) {
       console.log('#m projeto#',n);
       this.$router.push({ name: 'projeto', params: { idProjeto:n }})
+    },
+    goCreateProject() {
+      console.log("create");
+      this.$router.push({ name: 'formProjeto'})
     },
   },
 };
