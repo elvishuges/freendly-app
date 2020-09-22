@@ -25,17 +25,18 @@ export default function setup() {
   }, (error) => {
     // Do something with response error
     var err = String(error)
-
-    if (err.includes('Network') || err.status === 401 ) {
+    console.log("Interceptor",error);
+    if (err.includes('Network') || err.includes('401')) {
+      console.log("Errorrrrrrrrr");
       store.dispatch(AUTH_LOGOUT).then(() => {
         store.dispatch(CLEAN_COMPANY_DATE)
-      });
-      router.push("/login");
+      });      
 
       if (showAlert) {
         alert('Não foi possível conectar ao servidor. Tente novamente mais tarde.')
         // window.location.reload()
       }
+      router.push("/login");
     }
     throw error;
   });

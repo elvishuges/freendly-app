@@ -21,7 +21,7 @@
             height="200"
             width="200"
             elevation="6"
-            @click="toggle"
+            @click="toggle , openProjectProfile(project)"
           >
           <v-img
             class="white--text align-end"
@@ -37,8 +37,7 @@
             >
               <v-scale-transition>
                 <v-icon
-                  v-if="active"
-                  @click="openProjectProfile(n)"
+                  :v-if="true"                  
                   color="white"
                   size="48"
                   v-text="'mdi-share-circle'"
@@ -65,24 +64,8 @@
              
              class=" caption pt-0 title"
              >Crie seu Primeiro projeto...</v-card-title>
-          </v-img>
-            <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-            >
-              <v-scale-transition>
-                <v-icon
-                  v-if="true"   
-                                
-                  color="white"
-                  size="48"
-                  v-text="'mdi-share-circle'"
-                ></v-icon>
-              </v-scale-transition>
-            </v-row>
+          </v-img>            
           </v-card>
-
       </div>
       
     </v-row>
@@ -92,6 +75,7 @@
 
 
 <script>
+
 export default {
   props: {
     listProjects: {
