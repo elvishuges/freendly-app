@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <p class="body font-weight-regular pl-2 pt-0 pa-0">Propostas pendentes</p>
+    <p class="title font-weight-medium pl-2 pt-0 pa-0">Propostas pendentes</p>
     <v-card elevation="0" height="270px" class="scroll pt-0 pl-2">
       <v-container>
         <v-skeleton-loader

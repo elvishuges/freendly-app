@@ -5,7 +5,7 @@
       <v-flex xs12 sm8 md8>
         <v-container class="pl-8 pb-0 pt-0 pr-6">
           <v-tabs v-model="tab">
-            <v-tab v-for="item in items" :key="item.tab">{{ item.name }}</v-tab>
+            <v-tab class="subtitle-1 font-weight-medium"  v-for="item in items" :key="item.tab">{{ item.name }}</v-tab>
           </v-tabs>
           <v-tabs-items v-model="tab">
             <v-tab-item v-for="item in items" :key="item.tab">

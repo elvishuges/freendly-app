@@ -8,18 +8,25 @@
           height="94"
           type="list-item-three-line"
         >
-        <v-row dense>
-          <v-col v-for="item in items" :key="item.id" cols="12" sm="6" md="6" lg="6">
-            <v-card @click="name()" elevation="3">
-              <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <v-card-title class="caption pt-0" v-text="item.title"></v-card-title>
-                  <v-card-subtitle v-text="item.artist"></v-card-subtitle>
+          <v-row dense>
+            <v-col v-for="item in items" :key="item.id" cols="12" sm="12" md="6" lg="6">
+              <v-card   class="elevation-4" height="100px" color="#26c6da" dark>
+                <div class="d-flex flex-no-wrap justify-space-between">
+                  <div>
+                    <v-card-title v-text="item.title"></v-card-title>
+
+                    <v-card-subtitle v-text="item.artist"></v-card-subtitle>
+                  </div>
+                  <v-list-item-avatar class="ma-3" size="50" color="grey darken-3">
+                    <v-img
+                      
+                      src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                    ></v-img>
+                  </v-list-item-avatar>
                 </div>
-              </div>
-            </v-card>
-          </v-col>
-        </v-row>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-skeleton-loader>
       </v-container>
     </v-card>
@@ -31,37 +38,37 @@ export default {
   data() {
     return {
       key: "",
-      loadingList:false,
+      loadingList: false,
       items: [
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
           artist: "Foster the People",
-          id:'1'
+          id: "1",
         },
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
           artist: "Foster the People",
-          id:'2'
+          id: "2",
         },
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
           artist: "Foster the People",
-          id:'3'
+          id: "3",
         },
         {
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
           artist: "Foster the People",
-          id:'4'
+          id: "4",
         },
       ],
     };
   },
   mounted() {
-    this.getJobs()
+    this.getJobs();
   },
   methods: {
     getJobs() {
@@ -69,7 +76,7 @@ export default {
       this.loadingList = true;
       setTimeout(() => {
         this.loadingList = false;
-      }, 2000);
+      }, 1);
     },
   },
 };
