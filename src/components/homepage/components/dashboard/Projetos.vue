@@ -1,6 +1,6 @@
 <template>
 <div>
-<p class="headline font-weight-regular pl-4 pt-4">Projetos</p>
+<p class="headline font-weight-regular pl-4 pt-4">Meus Projetos</p>
 <v-row align="center"
       justify="center">
       

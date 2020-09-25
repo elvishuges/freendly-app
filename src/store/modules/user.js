@@ -5,7 +5,11 @@ import {
 
 
 const state = {
-  empresa: { nome: "", descricao: "", dirImagem: "" }
+  empresa: { 
+     nome: "...", 
+     descricao: "...", 
+     dirImagem: "" 
+  }
 };
 
 const getters = {
@@ -27,6 +31,7 @@ const mutations = {
   },
 
   [CLEAN_COMPANY_DATE]: (state) => {
+    state = {}
     state.empresa = { nome: "", descricao: "", dirImagem: "" }
   },
 };

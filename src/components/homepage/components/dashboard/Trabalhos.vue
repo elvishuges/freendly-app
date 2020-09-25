@@ -10,14 +10,14 @@
         >
           <v-row dense>
             <v-col v-for="item in items" :key="item.id" cols="12" sm="12" md="6" lg="6">
-              <v-card   class="elevation-4" height="100px" color="#26c6da" dark>
+              <v-card   class="elevation-4" height="100px" >
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <div>
-                    <v-card-title v-text="item.title"></v-card-title>
+                    <v-card-title class="body-1" v-text="item.title"></v-card-title>
 
                     <v-card-subtitle v-text="item.artist"></v-card-subtitle>
                   </div>
-                  <v-list-item-avatar class="ma-3" size="50" color="grey darken-3">
+                  <v-list-item-avatar class="ma-3" size="50" color="secondary">
                     <v-img
                       
                       src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"

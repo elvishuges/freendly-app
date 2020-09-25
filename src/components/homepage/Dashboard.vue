@@ -4,11 +4,11 @@
     <v-row>
       <v-flex xs12 sm8 md8>
         <v-container class="pl-8 pb-0 pt-0 pr-6">
-          <v-tabs v-model="tab">
-            <v-tab class="subtitle-1 font-weight-medium"  v-for="item in items" :key="item.tab">{{ item.name }}</v-tab>
+          <v-tabs v-model="tab" class="pl-0 pr-9">
+            <v-tab class="subtitle-1 font-weight-medium"  v-for="item in tabs" :key="item.tab">{{ item.name }}</v-tab>
           </v-tabs>
           <v-tabs-items v-model="tab">
-            <v-tab-item v-for="item in items" :key="item.tab">
+            <v-tab-item v-for="item in tabs" :key="item.tab">
               <v-card flat>
                 <v-card-text>
                   <component v-bind:is="item.content"></component>
@@ -19,7 +19,7 @@
         </v-container>
       </v-flex>
       <v-flex xs12 sm4 md4>
-        <Propostas />
+        <Propostas/>
       </v-flex>
     </v-row>
   </div>
@@ -46,9 +46,10 @@ export default {
       key: "value",
       listProjects:[],
       tab: null,
-      items: [
-        { tab: 0, name: "Trabalho", content: "Trabalhos" },
+      tabs: [
+        { tab: 0, name: "Jobs", content: "Trabalhos" },
         { tab: 1, name: "Notificações", content: "Notificacoes" },
+        { tab: 2, name: "Minhas Anotações", content: "Notificacoes" },
       ],
     };
   },

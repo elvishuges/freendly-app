@@ -47,10 +47,10 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="login()" block dark color="blue-grey">Login</v-btn>
+              <v-btn @click="login()" block dark color="primary">Login</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn @click="register()" dark block color="light-blue darken-4">Register</v-btn>
+              <v-btn @click="register()" dark block color="secondary">Register</v-btn>
             </v-card-actions>
           </v-card>
           <v-alert :value="alert" color="red">{{msg}}</v-alert>

@@ -39,6 +39,7 @@ export default new Router({
       component: () => import('./../views/Register'),
       beforeEnter: ifAuthenticated
     },
+
     {
         path: "/homePage",
         name: "homePage",
@@ -60,6 +61,12 @@ export default new Router({
             path: '/formProjeto',
             name: 'formProjeto',
             component: () => import('./../components/homepage/FormProjeto'),
+            beforeEnter: ifNotAuthenticated
+          },
+          {
+            path: '/searchJobs',
+            name: 'searchJobs',
+            component: () => import('./../components/homepage/SearchJobs'),
             beforeEnter: ifNotAuthenticated
           },
         ]
