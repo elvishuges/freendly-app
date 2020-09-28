@@ -10,11 +10,13 @@
         mandatory
         show-arrows
       >
+      
         <v-slide-item
           v-for="project in listProjects"
           :key="project.id"
           v-slot:default="{ active, toggle }"
         >
+        
           <v-card
             :color="active ? 'black' : 'grey lighten-1'"
             class="ma-4"
@@ -25,8 +27,8 @@
           >
           <v-img
             class="white--text align-end"
-            height="200px"
-            :src="`http://localhost:3000/${project.dirImagem}`"
+            height="200px"            
+            :src="`${serverHost}${project.dirImagem}`"
           >
             <v-card-title class=" caption pt-0 title">{{project.nome }}</v-card-title>
           </v-img>
@@ -86,6 +88,7 @@ export default {
   data() {
     return {
       key: "",
+      serverHost:this.$freendlyHost,
       model: null,
     };
   },
