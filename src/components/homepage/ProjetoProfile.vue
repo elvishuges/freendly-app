@@ -1,75 +1,41 @@
 <template>
   <v-container fluid class="pt-0">
     <v-row>
-      <v-flex xs12 sm8 md9>Corpo</v-flex>
-      <v-flex xs12 sm4 md3>
-        <v-card height="595px" class="overflow-hidden">
-          <v-toolbar color="white" flat>
-            <v-toolbar-title class="teal--text text--darken-3">Coversa com participante</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-            <template v-slot:extension>
-              <v-tabs centered v-model="tab">
-                <v-tab v-for="item in items" :key="item.tab">{{ item.title }}</v-tab>
-              </v-tabs>
-            </template>
-          </v-toolbar>
-
-          <v-tabs-items v-model="tab">
-            <v-tab-item v-for="item in items" :key="item.tab">
-              <v-card flat>
-                <v-card-text>
-                  <v-row>
-                    <component v-if="item.isChat" :listMessages="messages" v-bind:is="item.content"></component>
-                    <component v-else v-bind:is="item.content"></component>
-                  </v-row>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-          </v-tabs-items>
-
-          <v-card-text>
-            <v-row>
-              <v-col cols="9">
-                <v-text-field
-                  prepend-icon="mdi-emoticon"
-                  :append-icon-cb="sendMessage"
-                  filled
-                  v-model="inputChatText"
-                  clear-icon="mdi-close-mesasge"
-                  clearable
-                  label="digite sua mensage"
-                  type="text"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="2" class="pl-3">
-                <v-btn :disabled="inputChatText === ''" @click="sendMessage(inputChatText)" class="ma-2" text icon>
-                  <v-icon>mdi-send</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-flex>
+      <Principal />
+       <Chat :listChatMessage="messages" /> 
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ChatMessages from "./components/projetoProfile/ChatMessages";
-import Participante from "./components/projetoProfile/Participante";
+//import ChatMessages from "./components/projetoProfile/ChatMessages";
+//import Participante from "./components/projetoProfile/Participante";
+import Principal from "./components/projetoProfile/Principal";
+import Chat from "./components/projetoProfile/Chat";
 
 export default {
   components: {
-    ChatMessages,
-    Participante,
+    //ChatMessages,
+    //Participante,
+    Principal,
+    Chat,
   },
 
   data() {
     return {
       inset: false,
+      direction: "bottom",
+      fab: false,
+      fling: false,
+      hover: false,
+      tabs: null,
+      top: false,
+      right: true,
+      bottom: true,
+      left: false,
+      transition: "slide-y-reverse-transition",
       tab: null,
-      userId:0,
+      userId: 0,
       inputChatText: "",
       items: [
         { tab: 0, isChat: true, title: "Chat", content: "ChatMessages" },
@@ -100,18 +66,17 @@ export default {
   mounted() {
     //this.addMessagesTeste();
     //console.log("USUARIO DADOS",this.$store.state.auth.usuario);
-    this.userId =  this.$store.state.auth.usuario.id
-    this.$socket.emit('onProjectPage',this.userId) // enviar id para servidor saber que este user entrou
+    this.userId = this.$store.state.auth.usuario.id;
+    this.$socket.emit("onProjectPage", this.userId); // enviar id para servidor saber que este user entrou
   },
   methods: {
     sendMessage(message) {
-      let myMessage = { text: message ,myMessage: true };
+      let myMessage = { text: message, myMessage: true };
       // manda para o usuário de id 11
-      let socketMessage = { usr: 17 , text: message };
+      let socketMessage = { usr: 17, text: message };
       this.messages.push(myMessage);
-      this.inputChatText = ""
+      this.inputChatText = "";
       this.$socket.emit("chat", socketMessage);
-
     },
     addMessagesTeste() {
       setInterval(() => {
@@ -120,8 +85,34 @@ export default {
       }, 2000);
     },
   },
-  computed: {  },
-  watch: {  },
+  computed: {
+    activeFab() {
+      switch (this.tabs) {
+        case "one":
+          return { class: "purple", icon: "account_circle" };
+        case "two":
+          return { class: "red", icon: "edit" };
+        case "three":
+          return { class: "green", icon: "keyboard_arrow_up" };
+        default:
+          return {};
+      }
+    },
+  },
+  watch: {
+    top(val) {
+      this.bottom = !val;
+    },
+    right(val) {
+      this.left = !val;
+    },
+    bottom(val) {
+      this.top = !val;
+    },
+    left(val) {
+      this.right = !val;
+    },
+  },
   created() {
     console.log("creted", this.$route.params.idProjeto);
   },

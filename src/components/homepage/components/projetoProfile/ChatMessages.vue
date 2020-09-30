@@ -1,5 +1,5 @@
 <template>
-  <v-card  ref="chat" height="350px" class="scroll" flat>
+  <v-card  ref="chat" height="340px" class="scroll" flat>
                 <v-col :key="i" v-for="(item, i) in listMessages">
                   <v-card :color="item.myMessage ? 'green lighten-4' : ''" width="100%" >
                     <v-card-text class="font-weight-medium">

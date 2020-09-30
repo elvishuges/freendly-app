@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import {freendlyApiBaseURL} from "./services/config";
-Vue.prototype.$freendlyHost = freendlyApiBaseURL
+
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -12,6 +12,7 @@ import interceptorsSetup from './helpers/freendlyInterceptor'
 import VueSocketIO from 'vue-socket.io';
 
 Vue.config.productionTip = false
+Vue.prototype.$freendlyHost = freendlyApiBaseURL
 
 interceptorsSetup()
 

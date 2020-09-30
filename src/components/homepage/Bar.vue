@@ -45,8 +45,7 @@ props: {
 
   methods: {
     ChildtoggleDrawer: function () {
-           // Do your stuff
-           this.toggleDrawer(true);
+           console.log("clicadooo");
        }
   },
 
