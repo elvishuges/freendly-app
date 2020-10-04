@@ -9,6 +9,7 @@
           bottom
           right
           fab
+          @click="userClickChat"
           v-bind="attrs"
           v-on="on"
         >
@@ -73,6 +74,7 @@ export default {
     return {
       messages: [{ text: "ChatMessage 1" }, { text: "ChatMessage 2" }],
       inputChatText: "",
+      userClickedChat:false,
       drawer: true,
       mini: true,
     };
@@ -86,15 +88,17 @@ export default {
 
   watch: {
     listChatMessage() {
-      setTimeout(() => {
-        this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
-      }, 0);
+      if(this.userClickedChat){
+        setTimeout(() => {
+                this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
+        }, 0)
+      }
     },
   },
 
   methods: {
-    changeDrawer() {
-      console.log("mudou");
+    userClickChat() {
+      !this.userClickedChat ? this.userClickedChat = true : "" ;
     },
     sendMessage(message) {
       let myMessage = { text: message ,myMessage: true };

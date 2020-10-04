@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="pt-0">
     <v-row>
-      <Principal />
+      <Principal :loadingProject="loadingProject" :project="project" :projectTasks="projectTasks" />
        <Chat :listChatMessage="messages" /> 
     </v-row>
   </v-container>
@@ -12,6 +12,8 @@
 //import Participante from "./components/projetoProfile/Participante";
 import Principal from "./components/projetoProfile/Principal";
 import Chat from "./components/projetoProfile/Chat";
+
+import registeredUserService from "./../../services/freendly/registeredUser";
 
 export default {
   components: {
@@ -24,6 +26,16 @@ export default {
   data() {
     return {
       inset: false,
+      project:{},
+      idCurrentProject:undefined,
+      loadingProject: false,
+       projectTasks:[ 
+        {id:1,titulo:"Interface 1",descricao:"lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1",concluido:false},
+        {id:2,titulo:"Interface 2",descricao:"lorem inputn asd ere photo 2",concluido:true},
+        {id:3,titulo:"Interface 3",descricao:"lorem inputn asd ere photo 3",concluido:false},
+        {id:4,titulo:"Interface 4",descricao:"lorem inputn asd ere photo 4",concluido:false},
+        {id:5,titulo:"Interface 5",descricao:"lorem inputn asd ere photo 5",concluido:false}
+        ],
       direction: "bottom",
       fab: false,
       fling: false,
@@ -36,16 +48,7 @@ export default {
       transition: "slide-y-reverse-transition",
       tab: null,
       userId: 0,
-      inputChatText: "",
-      items: [
-        { tab: 0, isChat: true, title: "Chat", content: "ChatMessages" },
-        {
-          tab: 1,
-          isChat: false,
-          title: "Participante",
-          content: "Participante",
-        },
-      ],
+      inputChatText: "",      
       messages: [],
     };
   },
@@ -56,12 +59,7 @@ export default {
     },
     disconnect() {
       this.isConnected = false;
-    },
-    //Fired when the server sends something on the "messageChannel" channel.
-    chatChannel(data) {
-      let serverMessage = { text: data.text, myMessage: false };
-      this.messages.push(serverMessage);
-    },
+    },    
   },
   mounted() {
     //this.addMessagesTeste();
@@ -69,21 +67,38 @@ export default {
     this.userId = this.$store.state.auth.usuario.id;
     this.$socket.emit("onProjectPage", this.userId); // enviar id para servidor saber que este user entrou
   },
-  methods: {
-    sendMessage(message) {
-      let myMessage = { text: message, myMessage: true };
-      // manda para o usuário de id 11
-      let socketMessage = { usr: 17, text: message };
-      this.messages.push(myMessage);
-      this.inputChatText = "";
-      this.$socket.emit("chat", socketMessage);
-    },
+  methods: {    
     addMessagesTeste() {
       setInterval(() => {
         let m = { text: "Oi" };
         this.messages.push(m);
       }, 2000);
     },
+
+    getUserProject(projectId){
+      this.loadingProject = true
+      registeredUserService
+        .getUserProject(projectId)
+        .then((rsp) => {          
+          console.log("RSP GETUSERPROJECT", rsp);
+          switch (rsp.status) {
+            case 200:
+              this.loadingProject = false
+              var project = rsp.data.msg[0]
+              this.project = project
+              break;
+            case 203:
+              console.log("projeto n encontrado");
+              break
+            default:
+              break;
+          }
+        })
+        .catch((error) => {
+          console.log("Error Catch", error);
+        });
+    },
+    
   },
   computed: {
     activeFab() {
@@ -100,21 +115,13 @@ export default {
     },
   },
   watch: {
-    top(val) {
-      this.bottom = !val;
-    },
-    right(val) {
-      this.left = !val;
-    },
-    bottom(val) {
-      this.top = !val;
-    },
-    left(val) {
-      this.right = !val;
-    },
+    
   },
   created() {
-    console.log("creted", this.$route.params.idProjeto);
+    console.log("creted params", this.$route.params);
+    this.idCurrentProject = this.$route.params.idProjeto
+    var projectId = this.idCurrentProject
+    this.getUserProject(projectId)
   },
 };
 </script>

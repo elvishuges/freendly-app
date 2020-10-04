@@ -34,7 +34,7 @@ export default {
               });
         },
 
-        getUserAmountProjects(){
+        getUserAmountProjects(){ // acessando os dados atravez do token !!!
             return request({
                 url: '/user/amountProjects',
                 method: 'get',
@@ -52,6 +52,25 @@ export default {
                 url: '/user/projects/',
                 method: 'get',
             })
+        },
+
+        getUserProject(idProject){
+            return request({
+                url: `/user/project/${idProject}`,
+                method: 'get',
+            })
+        },
+        createProjectTask(idProject) { //ok
+            console.log('createProjectTask',idProject)
+             var obj = {
+                 idProject: idProject,
+             } 
+             return request({
+                url: '/user/project/task',
+                method: 'post',
+                data : obj
+              }) 
+           
         },
 
 }

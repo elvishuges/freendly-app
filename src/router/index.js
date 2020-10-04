@@ -34,6 +34,11 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
+      path: "/button",
+      name: "button",
+      component: () => import('./../views/Button'),
+    },
+    {
       path: "/register",
       name: "register",
       component: () => import('./../views/Register'),

@@ -19,7 +19,7 @@
           </v-card-title>
           <v-divider />
           <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
+            <v-form ref="form" v-model="registerFormValid" lazy-validation>
               <v-container>
                 <v-row>
                   <v-col cols="12" class="pa-0">
@@ -118,13 +118,12 @@ export default {
     return {
       msg: "",
       alert: false,
-      nome: "Elvis Huges",
-      nick: "Elvinho",
-      email: "elvis@hotmail.com",
+      nome: "",
+      nick: "",
+      email: "",
       senha: "",
       confirmeSenha: "",
-      valid: true,
-
+      registerFormValid: true,
       nomeRules: [
         (v) => !!v || "Campo obrigatório",
         (v) => (v && v.length < 20) || "Nome deve ter menos de 20 caracteres",

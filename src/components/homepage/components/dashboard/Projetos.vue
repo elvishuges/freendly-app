@@ -94,9 +94,9 @@ export default {
   },
 
   methods: {
-    openProjectProfile(n) {
-      console.log('#m projeto#',n);
-      this.$router.push({ name: 'projeto', params: { idProjeto:n }})
+    openProjectProfile(projeto) {
+      console.log('#m projeto#',projeto);
+      this.$router.push({ name: 'projeto', params: {idProjeto:projeto.id }})
     },
     goCreateProject() {
       console.log("create");
