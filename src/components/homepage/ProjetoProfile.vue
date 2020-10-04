@@ -1,9 +1,7 @@
 <template>
-  <v-container fluid class="pt-0">
-    <v-row>
+  <v-container fluid >
+      <Chat :listChatMessage="messages" /> 
       <Principal :loadingProject="loadingProject" :project="project" :projectTasks="projectTasks" />
-       <Chat :listChatMessage="messages" /> 
-    </v-row>
   </v-container>
 </template>
 

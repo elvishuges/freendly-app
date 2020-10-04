@@ -1,24 +1,24 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="4">
+    <v-row class="pl-6 ml-6">
+      <v-col lg="5" md="6">
         <v-skeleton-loader
           :loading="loadingProject"
           class="mx-auto"
           max-width="300"
           type="card"
         >
-          <v-card flat>
+          <v-card flat elevation="0">
             <v-img
               :src="`${serverHost}${project.dirImagem}`"
-              height="150"
+              height="200"
               class="grey darken-4"
             ></v-img>
-            <v-card-title class="title"> {{ project.nome }} </v-card-title>
+            <v-card-title class="title font-weight-bold"> {{ project.nome }} </v-card-title>
           </v-card>
         </v-skeleton-loader>
       </v-col>
-      <v-col cols="8">
+      <v-col lg="7" md="6">
         <v-skeleton-loader
           :loading="loadingProject"
           transition="scale-transition"
@@ -27,10 +27,10 @@
         >
           <v-card flat class="mx-auto">
             <v-card-text class="pt-0">
-              <p class="title text--primary">{{ project.descricao }}</p>
-              <div>Salário : {{ project.salario }}</div>
-              <div>Encontos senamais : {{ project.encontrosSemanais }}</div>
-              <div>Linguagens de Programação : {{ project.linguagens }}</div>
+              <p class="text-h5 font-weight-bold">{{ project.descricao }}</p>
+              <div class="title">Salário : {{ project.salario }}</div>
+              <div class="title">Encontos senamais : {{ project.encontrosSemanais }}</div>
+              <div class="title">Linguagens de Programação : {{ project.linguagens }}</div>
             </v-card-text>
           </v-card>
         </v-skeleton-loader>
@@ -49,66 +49,67 @@
             <v-card-title class="title text--primary"
               >Tarefas
               <v-spacer></v-spacer>
-              <v-btn @click="henderFormTask" color="black" icon>
-                <v-icon>{{ showFormTask ? 'mdi-trash-can' : 'mdi-plus' }}</v-icon>
+              <v-btn @click="henderFormTask" :color="showFormTask ? 'red':'primary'" icon>
+                <v-icon >{{
+                  showFormTask ? "mdi-trash-can" : "mdi-plus"
+                }}</v-icon>
               </v-btn></v-card-title
             >
             <v-card-text class="scroll pt-0">
-              <v-list  subheader three-line height="250px">
-                <v-card  v-show="showFormTask">
+              <v-list subheader three-line height="250px">
+                <v-card elevation="5" v-show="showFormTask">
                   <v-list-item >
                     <template>
                       <v-list-item-action>
                         <v-checkbox :input-value="false"></v-checkbox>
                       </v-list-item-action>
-                      <v-list-item-content>
-                        <v-form ref="form" enctype="multipart/form-data" method="POST" v-model="validCreateTask">
-                        <v-list-item-title class="pa-0">
-                          <v-col class="pa-0" cols="5">
+                      <v-list-item-content class="pa-0">
+                        <v-form
+                          ref="form"
+                          enctype="multipart/form-data"
+                          method="POST"
+                          v-model="validCreateTask"
+                        >
+                          <v-list-item-title class="pa-0">
+                            <v-col class="pa-0" cols="5">
+                              <v-text-field
+                                :rules="tituloTaskRules"
+                                placeholder="Título..."
+                                solo
+                              ></v-text-field>
+                            </v-col>
+                          </v-list-item-title>
+                          <v-list-item-subtitle class="pt-0">
                             <v-text-field
-                              :rules="tituloTaskRules"
-                              placeholder="Título..."
+                              class="ma-0"
+                              :rules="descricaoTaskRules"
+                              placeholder="Descrição..."
                               solo
                             ></v-text-field>
-                          </v-col>
-                        </v-list-item-title>
-                        <v-list-item-subtitle class="pt-0">
-                          <v-text-field
-                            class="ma-0"
-                            :rules="descricaoTaskRules"
-                            placeholder="Descrição..."
-                            solo
-                          ></v-text-field>
-                        </v-list-item-subtitle>
+                          </v-list-item-subtitle>
                         </v-form>
                       </v-list-item-content>
                     </template>
                   </v-list-item>
-                  <v-card-actions class="pa-0 ma-0">
+                  <v-card-actions class="pt-0">
                     <v-spacer></v-spacer>
-                    <v-btn @click="createTask" icon>
-                      <v-icon>mdi-creation</v-icon>
+                    <v-btn class="secondary" @click="createTask" icon>
+                      <v-icon>mdi-plus</v-icon>
                     </v-btn>
                   </v-card-actions>
                 </v-card>
-
-                <v-list-item-group
-                  :key="item.title"
-                  v-for="item in projectTasks"
-                  v-model="settings"
-                  multiple
-                  active-class=""
-                >
-                  <v-list-item>
+                <v-list-item-group >
+                  <v-list-item :key="item.title" v-for="item in projectTasks">
                     <template>
                       <v-list-item-action>
-                        <v-checkbox :input-value="item.concluido"></v-checkbox>
+                        <v-checkbox v-model="item.concluido" :input-value="item.concluido"></v-checkbox>
                       </v-list-item-action>
                       <v-list-item-content>
-                        <v-list-item-title>{{ item.titulo }}</v-list-item-title>
-                        <v-list-item-subtitle>{{
+                        <v-list-item-title>{{ item.titulo }}  
+                        </v-list-item-title>
+                        <v-list-item-subtitle :class=" item.concluido ? 'text-decoration-line-through':''">{{
                           item.descricao
-                        }}</v-list-item-subtitle>
+                        }}</v-list-item-subtitle>                        
                       </v-list-item-content>
                     </template>
                   </v-list-item>
@@ -150,12 +151,19 @@ export default {
   data() {
     return {
       key: "value",
-      showFormTask:false,
-      validCreateTask:false,
+      showFormTask: false,
+      validCreateTask: false,
       serverHost: this.$freendlyHost,
       settings: [],
       tituloTaskRules: [(v) => !!v || "Campo obrigatório"],
       descricaoTaskRules: [(v) => !!v || "Campo obrigatório"],
+      tasks:[ 
+        {id:1,titulo:"aaaaaaaaaaa 1",descricao:"lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1",concluido:false},
+        {id:2,titulo:"Interface 2",descricao:"lorem inputn asd ere photo 2",concluido:true},
+        {id:3,titulo:"Interface 3",descricao:"lorem inputn asd ere photo 3",concluido:false},
+        {id:4,titulo:"Interface 4",descricao:"lorem inputn asd ere photo 4",concluido:false},
+        {id:5,titulo:"Interface 5",descricao:"lorem inputn asd ere photo 5",concluido:false}
+        ],
     };
   },
 
@@ -163,22 +171,23 @@ export default {
 
   methods: {
     henderFormTask() {
-      !this.showFormTask ? this.showFormTask = true : this.showFormTask = false
+      !this.showFormTask
+        ? (this.showFormTask = true , this.$refs.form.reset())
+        : (this.showFormTask = false);
+        
     },
     createTask() {
-      if(this.$refs.form.validate()){
+      if (this.$refs.form.validate()) {
         registeredUserService
-          .createProject(
-            this.project.id
-          )
+          .createProject(this.project.id)
           .then((rsp) => {
             console.log("RSP CADASTRAR PROJETO", rsp);
-            this.createdProjects = rsp.data.msg
-            this.$refs.form.reset()
-          }).catch((rsp) => {
-
-          console.log("Cadastrar Projeto catch", rsp);
-        });
+            this.createdProjects = rsp.data.msg;
+            this.$refs.form.reset();
+          })
+          .catch((rsp) => {
+            console.log("Cadastrar Projeto catch", rsp);
+          });
       }
       console.log("creatin taks");
     },

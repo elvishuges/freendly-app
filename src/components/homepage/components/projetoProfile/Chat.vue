@@ -12,6 +12,7 @@
           @click="userClickChat"
           v-bind="attrs"
           v-on="on"
+          id="fixedbutton"
         >
           <v-icon>mdi-chat</v-icon>
         </v-btn>
@@ -116,4 +117,10 @@ export default {
 </script>
 
 <style>
+/* This is for documentation purposes and will not be needed in your application */
+  #fixedbutton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; 
+}
 </style>
