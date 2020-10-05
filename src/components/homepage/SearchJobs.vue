@@ -21,19 +21,16 @@
       </v-row>
 
       <v-row class="pt-0">
-        <v-col cols="12" sm="12">
           <v-container>
             <v-row>
               <v-col
                 v-for="item in items"
                 :key="item.id"
                 class="pl-5 pr-5"
-                cols="12"
-                sm="6"
-                md="4"
-                lg="4"
+                xs6
+                lg12
               >
-                <v-card elevation="8" class="mx-auto" max-width="344" outlined>
+                <v-card elevation="8" class="mx-auto" max-width="344" >
                   <v-list-item three-line>
                     <v-list-item-avatar                      
                       size="80"
@@ -71,7 +68,6 @@
               </v-col>
             </v-row>
           </v-container>
-        </v-col>
       </v-row>
     </v-container>
   </v-main>
@@ -96,6 +92,8 @@ export default {
       search: null,
       select: null,
       searchString:"",
+      helo:'',
+      isUpdating:false,
       states: [
         'Alabama',
         'Alaska',

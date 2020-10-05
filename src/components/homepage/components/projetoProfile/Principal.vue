@@ -1,14 +1,12 @@
 <template>
   <v-container>
-    <v-row class="pl-6 ml-6">
-      <v-col lg="5" md="6">
+    <v-row>
+      <v-col xs12 sm8 md8 class="pa-0">
         <v-skeleton-loader
-          :loading="loadingProject"
-          class="mx-auto"
-          max-width="300"
+          :loading="loadingProject"          
           type="card"
         >
-          <v-card flat elevation="0">
+          <v-card class="pb-0" max-width="500" min-height="200" flat elevation="0">
             <v-img
               :src="`${serverHost}${project.dirImagem}`"
               height="200"
@@ -18,27 +16,26 @@
           </v-card>
         </v-skeleton-loader>
       </v-col>
-      <v-col lg="7" md="6">
+      <v-col xs12 sm8 md8 class="pa-0" >
         <v-skeleton-loader
           :loading="loadingProject"
           transition="scale-transition"
           height="94"
           type="list-item-three-line"
         >
-          <v-card flat class="mx-auto">
+          <v-card tile flat>
             <v-card-text class="pt-0">
-              <p class="text-h5 font-weight-bold">{{ project.descricao }}</p>
-              <div class="title">Salário : {{ project.salario }}</div>
-              <div class="title">Encontos senamais : {{ project.encontrosSemanais }}</div>
-              <div class="title">Linguagens de Programação : {{ project.linguagens }}</div>
+              <p  :class="descriptionImageStyle" >{{ project.descricao }}</p>
+              <div :class="infoImageStyle">Salário : {{ project.salario }}</div>
+              <div :class="infoImageStyle">Encontos senamais : {{ project.encontrosSemanais }}</div>
+              <div :class="infoImageStyle">Linguagens de Programação : {{ project.linguagens }}</div>
             </v-card-text>
           </v-card>
         </v-skeleton-loader>
       </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="6">
+     </v-row>
+     <v-row>
+      <v-col  xs12 sm8 md8>
         <v-skeleton-loader
           :loading="loadingProject"
           transition="scale-transition"
@@ -57,7 +54,7 @@
             >
             <v-card-text class="scroll pt-0">
               <v-list subheader three-line height="250px">
-                <v-card elevation="5" v-show="showFormTask">
+                <v-card flat  v-show="showFormTask">
                   <v-list-item >
                     <template>
                       <v-list-item-action>
@@ -119,7 +116,7 @@
           </v-card>
         </v-skeleton-loader>
       </v-col>
-      <v-col cols="6">
+      <v-col xs12 sm8 md8 >
         <v-skeleton-loader
           transition="scale-transition"
           height="94"
@@ -191,6 +188,28 @@ export default {
       }
       console.log("creatin taks");
     },
+  },
+
+  computed: {
+    infoImageStyle() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'body-2'
+          case 'sm': return 'body-1'
+          case 'md': return 'body-1'
+          default :
+            return "title"
+        }
+    },
+    descriptionImageStyle() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'title'
+          case 'sm': return 'title'
+          case 'md': return 'title'
+          case 'lg': return 'text-h5 font-weight-bold'
+          default :
+            return "title"
+        }
+    }
   },
 };
 </script>
