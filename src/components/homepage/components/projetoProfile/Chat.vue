@@ -46,7 +46,7 @@
               </v-col>
               <v-col cols="2" class="pl-2">
               <v-btn
-                :disabled="inputChatText === ''"
+                :disabled="removeWhiteSpaceChatText === ''"
                 @click="sendMessage(inputChatText)"
                 class="ma-0"
                 text
@@ -112,7 +112,11 @@ export default {
     },
   },
 
-  computed: {},
+  computed: {
+    removeWhiteSpaceChatText(){
+      return this.inputChatText.trim()
+    }
+  },
 };
 </script>
 

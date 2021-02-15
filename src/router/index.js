@@ -7,7 +7,7 @@ import HomePage from "./../views/HomePage";
 Vue.use(Router);
 
 const ifNotAuthenticated = (to, from, next) => {
-  console.log("ROTAAAAAAAA 1",store.getters.isAuthenticated);
+  console.log("ROTAAAAAAAA 1", store.getters.isAuthenticated);
   if (!store.getters.isAuthenticated) {
     next("/login");
     return;
@@ -16,9 +16,9 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-  console.log("ROTAAAAAAAA 2",store.getters.isAuthenticated);
+  console.log("ROTAAAAAAAA 2", store.getters.isAuthenticated);
   if (store.getters.isAuthenticated) {
-      next("/dashboard");
+    next("/dashboard");
     return;
   }
   next();
@@ -30,6 +30,12 @@ export default new Router({
     {
       path: "/login",
       name: "login",
+      component: () => import('./../views/Login'),
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: "/",
+      name: "home",
       component: () => import('./../views/Login'),
       beforeEnter: ifAuthenticated
     },
@@ -46,35 +52,35 @@ export default new Router({
     },
 
     {
-        path: "/homePage",
-        name: "homePage",
-        component: HomePage,
-        children: [
-          {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: Dashboard,
-            beforeEnter: ifNotAuthenticated
-          },
-          {
-            path: '/dashboard/projeto/:idProjeto',
-            name: 'projeto',
-            component: () => import('./../components/homepage/ProjetoProfile'),
-            beforeEnter: ifNotAuthenticated
-          },
-          {
-            path: '/formProjeto',
-            name: 'formProjeto',
-            component: () => import('./../components/homepage/FormProjeto'),
-            beforeEnter: ifNotAuthenticated
-          },
-          {
-            path: '/searchJobs',
-            name: 'searchJobs',
-            component: () => import('./../components/homepage/SearchJobs'),
-            beforeEnter: ifNotAuthenticated
-          },
-        ]
+      path: "/homePage",
+      name: "homePage",
+      component: HomePage,
+      children: [
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: Dashboard,
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/dashboard/projeto/:idProjeto',
+          name: 'projeto',
+          component: () => import('./../components/homepage/ProjetoProfile'),
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/formProjeto',
+          name: 'formProjeto',
+          component: () => import('./../components/homepage/FormProjeto'),
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/searchJobs',
+          name: 'searchJobs',
+          component: () => import('./../components/homepage/SearchJobs'),
+          beforeEnter: ifNotAuthenticated
+        },
+      ]
     },
   ]
 });

@@ -1,5 +1,5 @@
 <template>
-  <div>   
+  <div>
     <v-navigation-drawer
       v-model="showDrawer"
       absolute
@@ -64,7 +64,7 @@
 
       <v-toolbar-title>showDrawer</v-toolbar-title>
 
-      <v-spacer></v-spacer>     
+      <v-spacer></v-spacer>
 
       <v-btn icon @click="GlobalEventshowChatDrawer">
         <v-icon>mdi-dots-vertical</v-icon>
@@ -75,11 +75,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { EventBus } from './../../utils/event-bus.js'
+import { EventBus } from "./../../utils/event-bus.js";
 import { AUTH_LOGOUT } from "./../../store/actions/auth";
-import { 
-  CLEAN_COMPANY_DATE,
-  } from "./../../store/actions/user";
+import { CLEAN_COMPANY_DATE } from "./../../store/actions/user";
 
 export default {
   props: {
@@ -119,16 +117,14 @@ export default {
       console.log("logout");
       this.$store.dispatch(AUTH_LOGOUT).then(() => {
         this.$router.push("/login");
-        this.$store.dispatch(CLEAN_COMPANY_DATE);        
+        this.$store.dispatch(CLEAN_COMPANY_DATE);
       });
     },
 
-    GlobalEventshowChatDrawer(){      
-      
+    GlobalEventshowChatDrawer() {
       // Send the event on a channel (i-got-clicked) with a payload (the click count.)
-      EventBus.$emit('GlobalEventshowChatDrawer',true);    
-      
-    }
+      EventBus.$emit("GlobalEventshowChatDrawer", true);
+    },
   },
 
   computed: {
@@ -137,8 +133,6 @@ export default {
       // ...
     ]),
   },
-
-  
 };
 </script>
 
