@@ -44,7 +44,13 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="$refs.form.validate() && login()" block dark color="primary">Login</v-btn>
+              <v-btn
+                @click="$refs.form.validate() && login()"
+                block
+                dark
+                color="primary"
+                >Login</v-btn
+              >
             </v-card-actions>
             <v-card-actions>
               <v-btn @click="register()" dark block color="secondary"
@@ -77,8 +83,8 @@ export default {
   data() {
     return {
       validFormLogin: true,
-      email: '',
-      senha: '',
+      email: "",
+      senha: "",
       loading: false,
       msg: "",
       alert: false,
@@ -93,28 +99,31 @@ export default {
       ],
     };
   },
+  mounted() {
+    console.log("####***", process.env.NODE_ENV, "***####");
+  },
   methods: {
     login: function () {
-        const { email, senha } = this;
-        this.alert = false;
-        this.msg = "";
-        this.$store
-          .dispatch(AUTH_LOGIN_REQUEST, { email, senha })
-          .then((rsp) => {
-            if (rsp) {
-              // true
-              this.$router.push("/dashboard");
-            } else {
-              console.log("RSP", rsp);
-              this.alert = true;
-              this.msg = "email ou senha incorretos";
-            }
-          })
-          .catch((rsp) => {
+      const { email, senha } = this;
+      this.alert = false;
+      this.msg = "";
+      this.$store
+        .dispatch(AUTH_LOGIN_REQUEST, { email, senha })
+        .then((rsp) => {
+          if (rsp) {
+            // true
+            this.$router.push("/dashboard");
+          } else {
+            console.log("RSP", rsp);
             this.alert = true;
-            this.msg = rsp;
-            console.log("Login catch", rsp);
-          });
+            this.msg = "email ou senha incorretos";
+          }
+        })
+        .catch((rsp) => {
+          this.alert = true;
+          this.msg = rsp;
+          console.log("Login catch", rsp);
+        });
     },
 
     register: function () {
