@@ -12,7 +12,7 @@
     <v-container fluid class="mt-4">
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md6>
-          <v-card elevation="4">
+          <v-card outlined>
             <v-card-title src="https://picsum.photos/1920/1080?random">
               <v-icon large left>mdi-cube-unfolded</v-icon>
               <span>Freendly</span>
