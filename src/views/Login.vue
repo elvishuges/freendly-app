@@ -9,7 +9,11 @@
       </v-flex>
       <v-flex xs12 sm12 md4 class="pt-4" align-center justify-center>
         <v-layout column>
-          <login-form @submitFormLogin="submitForm"> </login-form>
+          <login-form
+            :loadingSubmitBottom="loading"
+            @submitFormLogin="submitForm"
+          >
+          </login-form>
           <v-alert dark shaped :value="alert" color="red">{{ msg }}</v-alert>
         </v-layout>
       </v-flex>
@@ -53,6 +57,7 @@ export default {
       const { email, senha } = payload;
       this.alert = false;
       this.msg = "";
+      this.loading = true;
       this.$store
         .dispatch(AUTH_LOGIN_REQUEST, { email, senha })
         .then((rsp) => {
@@ -62,10 +67,13 @@ export default {
             this.alert = true;
             this.msg = "email ou senha incorretos";
           }
+          this.loading = false;
         })
         .catch((rsp) => {
           this.alert = true;
           this.msg = rsp;
+          this.loading = false;
+
           console.log("Login catch", rsp);
         });
     },

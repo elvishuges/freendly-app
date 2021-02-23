@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
-import {freendlyApiBaseURL} from "./services/config";
-
+import { freendlyApiBaseURL } from "./services/config";
+import clickOutsideDirective from "./directives/clickOutside.direcrtive";
 
 import 'vuetify/dist/vuetify.min.css'
 
 import router from "./router";
-import store from  './store'
+import store from './store'
 import interceptorsSetup from './helpers/freendlyInterceptor'
 import VueSocketIO from 'vue-socket.io';
 
@@ -16,14 +16,16 @@ Vue.prototype.$freendlyHost = freendlyApiBaseURL
 
 interceptorsSetup()
 
+Vue.directive("click-outside", clickOutsideDirective)
+
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: freendlyApiBaseURL,  
+  connection: freendlyApiBaseURL,
 }));
 
 new Vue({
   vuetify,
   store,
-  router,  
+  router,
   render: h => h(App)
 }).$mount('#app')

@@ -72,7 +72,6 @@
           <div style="cursor: pointer" @click="login()">
             Já possui cadastro ?
           </div>
-
           <v-spacer></v-spacer>
           <v-btn
             large

@@ -30,8 +30,9 @@
     <v-card-actions>
       <v-btn
         @click="$refs.form.validate() && login()"
-        dark
         block
+        :loading="loadingSubmitBottom"
+        :disabled="loadingSubmitBottom"
         color="primary"
         >Login</v-btn
       >
@@ -44,6 +45,12 @@
 
 <script>
 export default {
+  props: {
+    loadingSubmitBottom: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       validFormLogin: true,

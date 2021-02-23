@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-navigation-drawer
-      v-model="showDrawer"
+      v-bind:value="value"
+      v-on:input="$emit('input', $event)"
       absolute
       dark
       class="light-blue darken-1"
@@ -43,33 +44,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
-    <!-- * bar superior * -->
-
-    <v-app-bar
-      color="#fcb69f"
-      dark
-      src="https://picsum.photos/1920/1080?random"
-    >
-      <template v-slot:img="{ props }">
-        <v-img
-          v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-        ></v-img>
-      </template>
-
-      <v-app-bar-nav-icon
-        @click="showDrawer = !showDrawer"
-      ></v-app-bar-nav-icon>
-
-      <v-toolbar-title>showDrawer</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon @click="GlobalEventshowChatDrawer">
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
   </div>
 </template>
 
@@ -81,7 +55,11 @@ import { CLEAN_COMPANY_DATE } from "./../../store/actions/user";
 
 export default {
   props: {
-    openDrawer: { type: Boolean },
+    drawer: { type: Boolean },
+    value: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -119,6 +97,9 @@ export default {
         this.$router.push("/login");
         this.$store.dispatch(CLEAN_COMPANY_DATE);
       });
+    },
+    handleClickOutside() {
+      console.log("aquiii");
     },
 
     GlobalEventshowChatDrawer() {

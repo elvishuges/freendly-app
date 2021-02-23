@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./../store";
-import Dashboard from "./../components/homepage/Dashboard";
-import HomePage from "./../views/HomePage";
+import Dashboard from "./../components/userPage/Dashboard";
+import UserPage from "./../views/UserPage";
 
 Vue.use(Router);
 
@@ -52,9 +52,9 @@ export default new Router({
     },
 
     {
-      path: "/homePage",
-      name: "homePage",
-      component: HomePage,
+      path: "/userPage",
+      name: "userPage",
+      component: UserPage,
       children: [
         {
           path: '/dashboard',
@@ -65,19 +65,19 @@ export default new Router({
         {
           path: '/dashboard/projeto/:idProjeto',
           name: 'projeto',
-          component: () => import('./../components/homepage/ProjetoProfile'),
+          component: () => import('./../components/userPage/ProjetoProfile'),
           beforeEnter: ifNotAuthenticated
         },
         {
-          path: '/formProjeto',
+          path: '/projeto/add',
           name: 'formProjeto',
-          component: () => import('./../components/homepage/FormProjeto'),
+          component: () => import('./../components/userPage/FormProjeto'),
           beforeEnter: ifNotAuthenticated
         },
         {
-          path: '/searchJobs',
+          path: '/projetos',
           name: 'searchJobs',
-          component: () => import('./../components/homepage/SearchJobs'),
+          component: () => import('./../components/userPage/SearchJobs'),
           beforeEnter: ifNotAuthenticated
         },
       ]

@@ -19,15 +19,19 @@
       </template>
 
       <v-card class="elevation-12">
-        <v-toolbar dark class="secondary" >
-          <v-toolbar-title >Chat</v-toolbar-title>
+        <v-toolbar dark class="secondary">
+          <v-toolbar-title>Chat</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-card ref="chat" flat class="scroll" height="130" width="230">
             <v-list rounded>
               <v-list-item-group>
                 <template v-for="(item, i) in listChatMessage">
-                  <v-list-item :class="item.myMessage ? 'grey': ''" :key="`item-${i}`" :value="item">
+                  <v-list-item
+                    :class="item.myMessage ? 'grey' : ''"
+                    :key="`item-${i}`"
+                    :value="item"
+                  >
                     <v-list-item-content>
                       <v-list-item-title v-text="item.text"></v-list-item-title>
                     </v-list-item-content>
@@ -43,8 +47,8 @@
                 v-model="inputChatText"
                 label="mensagem..."
               ></v-text-field>
-              </v-col>
-              <v-col cols="2" class="pl-2">
+            </v-col>
+            <v-col cols="2" class="pl-2">
               <v-btn
                 :disabled="removeWhiteSpaceChatText === ''"
                 @click="sendMessage(inputChatText)"
@@ -63,7 +67,7 @@
 </template>
 
 <script>
-//import { EventBus } from './../../../../utils/event-bus';
+import { EventBus } from "./../../../../utils/event-bus";
 export default {
   props: {
     listChatMessage: {
@@ -75,56 +79,54 @@ export default {
     return {
       messages: [{ text: "ChatMessage 1" }, { text: "ChatMessage 2" }],
       inputChatText: "",
-      userClickedChat:false,
+      userClickedChat: false,
       drawer: true,
       mini: true,
     };
   },
   mounted() {
-    // EventBus.$on('GlobalEventshowChatDrawer', drawerState => {
-    //   this.drawer = drawerState
-    // });
-    
+    EventBus.$on("GlobalEventshowChatDrawer", (drawerState) => {
+      this.drawer = drawerState;
+    });
   },
 
   watch: {
     listChatMessage() {
-      if(this.userClickedChat){
+      if (this.userClickedChat) {
         setTimeout(() => {
-                this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
-        }, 0)
+          this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
+        }, 0);
       }
     },
   },
 
   methods: {
     userClickChat() {
-      !this.userClickedChat ? this.userClickedChat = true : "" ;
+      !this.userClickedChat ? (this.userClickedChat = true) : "";
     },
     sendMessage(message) {
-      let myMessage = { text: message ,myMessage: true };
+      let myMessage = { text: message, myMessage: true };
       // manda para o usuário de id 11
-      let socketMessage = { usr: 17 , text: message };
+      let socketMessage = { usr: 17, text: message };
       this.listChatMessage.push(myMessage);
-      this.inputChatText = ""
+      this.inputChatText = "";
       this.$socket.emit("chat", socketMessage);
-
     },
   },
 
   computed: {
-    removeWhiteSpaceChatText(){
-      return this.inputChatText.trim()
-    }
+    removeWhiteSpaceChatText() {
+      return this.inputChatText.trim();
+    },
   },
 };
 </script>
 
 <style>
 /* This is for documentation purposes and will not be needed in your application */
-  #fixedbutton {
-    position: fixed;
-    bottom: 30px;
-    right: 30px; 
+#fixedbutton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
 }
 </style>
