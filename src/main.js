@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import { freendlyApiBaseURL } from "./services/config";
-import clickOutsideDirective from "./directives/clickOutside.direcrtive";
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -16,7 +15,6 @@ Vue.prototype.$freendlyHost = freendlyApiBaseURL
 
 interceptorsSetup()
 
-Vue.directive("click-outside", clickOutsideDirective)
 
 Vue.use(new VueSocketIO({
   debug: true,

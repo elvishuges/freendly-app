@@ -1,77 +1,15 @@
 <template>
-  <v-main>
-    <v-container fluid>
-      <v-row>
-        <v-col cols="12" sm="12">
-          <v-autocomplete
-            clearable
-            :loading="loading"
-            v-model="searchString"
-            :disabled="isUpdating"
-            :search-input.sync="search"
-            solo
-            color="orange"
-            label="Buscar projeto por linguagem de programação"
-            item-text="name"
-            item-value="name"
-            multiple
-            :append-icon-cb="helo"
-            :open-on-click="true"
-          ></v-autocomplete>
-        </v-col>
-      </v-row>
-
-      <v-row class="pt-0">
-        <v-container>
-          <v-row>
-            <v-col
-              v-for="item in items"
-              :key="item.id"
-              class="pl-5 pr-5"
-              xs6
-              lg12
-            >
-              <v-card elevation="8" class="mx-auto" max-width="344">
-                <v-list-item three-line>
-                  <v-list-item-avatar
-                    size="80"
-                    src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
-                    color="grey"
-                  >
-                    <v-img
-                      height="100"
-                      width="100"
-                      src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-                    ></v-img
-                  ></v-list-item-avatar>
-                  <v-list-item-content>
-                    <div class="overline mb-4">OVERLINE</div>
-                    <v-list-item-title class="headline mb-1"
-                      >Headline 5</v-list-item-title
-                    >
-                    <v-list-item-subtitle
-                      >Greyhound divisely hello coldly
-                      fonwderfully</v-list-item-subtitle
-                    >
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn icon>
-                    <v-icon>mdi-eye</v-icon>
-                  </v-btn>
-                  <v-btn icon>
-                    <v-icon>mdi-share-variant</v-icon>
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-row>
-    </v-container>
-  </v-main>
+  <v-container style="min-height: 600px">
+    <v-flex xs12>
+      <v-card elevation="0">
+        <v-card-text>
+          <v-card-title>
+            <span class="font-weight-medium">Criar projeto ({{}}/4)</span>
+          </v-card-title>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>

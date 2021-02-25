@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col xs12 sm8 md8 class="pt-4">
+      <v-col xs12 sm8 md8 class="pt-4 pb-0">
         <v-skeleton-loader :loading="loadingProject" type="card">
           <v-card class="pb-0" min-height="200" dark elevation="0">
             <v-card-title class="title teal lighten-2 font-weight-bold">
@@ -15,7 +15,7 @@
           </v-card>
         </v-skeleton-loader>
       </v-col>
-      <v-col xs12 sm4 md4 class="pa-0 pt-4">
+      <v-col xs12 sm4 md4 class="pa-0 pt-0">
         <v-skeleton-loader
           :loading="loadingProject"
           transition="scale-transition"

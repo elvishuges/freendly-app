@@ -2,7 +2,7 @@
 
 <template>
   <v-container>
-    <app-bar title="Freendly"></app-bar>
+    <login-register-bar title="Freendly"></login-register-bar>
     <v-layout row>
       <v-flex xs12 sm6 md8 class="pr-3 pt-4 pl-3 hidden-sm-and-down">
         <v-img src="./../assets/loginImage2.jpg"></v-img>
@@ -32,13 +32,13 @@
 
 <script>
 import LoginForm from "@/components/login/LoginForm";
-import AppBar from "@/components/AppBar";
+import LoginRegisterBar from "@/components/LoginRegisterBar";
 import { AUTH_LOGIN_REQUEST } from "./../store/actions/auth";
 
 export default {
   name: "login",
   components: {
-    AppBar,
+    LoginRegisterBar,
     LoginForm,
   },
   data() {

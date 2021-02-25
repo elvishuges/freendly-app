@@ -9,14 +9,18 @@
 
     <v-app-bar-nav-icon @click="openDrawer"></v-app-bar-nav-icon>
 
-    <v-toolbar-title>Título</v-toolbar-title>
-
-    <v-spacer></v-spacer>
+    <v-toolbar-title>{{ title }}</v-toolbar-title>
   </v-app-bar>
 </template>
 
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: "Título",
+    },
+  },
   data() {
     return {
       drawer: null,

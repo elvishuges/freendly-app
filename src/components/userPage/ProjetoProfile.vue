@@ -1,13 +1,15 @@
 <template>
-  <v-container fluid >
-      <Chat :listChatMessage="messages" /> 
-      <Principal :loadingProject="loadingProject" :project="project" :projectTasks="projectTasks" />
+  <v-container fluid style="min-height: 600px">
+    <Chat :listChatMessage="messages" />
+    <Principal
+      :loadingProject="loadingProject"
+      :project="project"
+      :projectTasks="projectTasks"
+    />
   </v-container>
 </template>
 
 <script>
-//import ChatMessages from "./components/projetoProfile/ChatMessages";
-//import Participante from "./components/projetoProfile/Participante";
 import Principal from "./components/projetoProfile/Principal";
 import Chat from "./components/projetoProfile/Chat";
 
@@ -15,8 +17,6 @@ import registeredUserService from "./../../services/freendly/registeredUser";
 
 export default {
   components: {
-    //ChatMessages,
-    //Participante,
     Principal,
     Chat,
   },
@@ -24,16 +24,42 @@ export default {
   data() {
     return {
       inset: false,
-      project:{},
-      idCurrentProject:undefined,
+      project: {},
+      idCurrentProject: undefined,
       loadingProject: false,
-       projectTasks:[ 
-        {id:1,titulo:"Interface 1",descricao:"lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1",concluido:false},
-        {id:2,titulo:"Interface 2",descricao:"lorem inputn asd ere photo 2",concluido:true},
-        {id:3,titulo:"Interface 3",descricao:"lorem inputn asd ere photo 3",concluido:false},
-        {id:4,titulo:"Interface 4",descricao:"lorem inputn asd ere photo 4",concluido:false},
-        {id:5,titulo:"Interface 5",descricao:"lorem inputn asd ere photo 5",concluido:false}
-        ],
+      projectTasks: [
+        {
+          id: 1,
+          titulo: "Interface 1",
+          descricao:
+            "lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1",
+          concluido: false,
+        },
+        {
+          id: 2,
+          titulo: "Interface 2",
+          descricao: "lorem inputn asd ere photo 2",
+          concluido: true,
+        },
+        {
+          id: 3,
+          titulo: "Interface 3",
+          descricao: "lorem inputn asd ere photo 3",
+          concluido: false,
+        },
+        {
+          id: 4,
+          titulo: "Interface 4",
+          descricao: "lorem inputn asd ere photo 4",
+          concluido: false,
+        },
+        {
+          id: 5,
+          titulo: "Interface 5",
+          descricao: "lorem inputn asd ere photo 5",
+          concluido: false,
+        },
+      ],
       direction: "bottom",
       fab: false,
       fling: false,
@@ -46,7 +72,7 @@ export default {
       transition: "slide-y-reverse-transition",
       tab: null,
       userId: 0,
-      inputChatText: "",      
+      inputChatText: "",
       messages: [],
     };
   },
@@ -57,7 +83,7 @@ export default {
     },
     disconnect() {
       this.isConnected = false;
-    },    
+    },
   },
   mounted() {
     //this.addMessagesTeste();
@@ -65,7 +91,7 @@ export default {
     this.userId = this.$store.state.auth.usuario.id;
     this.$socket.emit("onProjectPage", this.userId); // enviar id para servidor saber que este user entrou
   },
-  methods: {    
+  methods: {
     addMessagesTeste() {
       setInterval(() => {
         let m = { text: "Oi" };
@@ -73,21 +99,21 @@ export default {
       }, 2000);
     },
 
-    getUserProject(projectId){
-      this.loadingProject = true
+    getUserProject(projectId) {
+      this.loadingProject = true;
       registeredUserService
         .getUserProject(projectId)
-        .then((rsp) => {          
+        .then((rsp) => {
           console.log("RSP GETUSERPROJECT", rsp);
           switch (rsp.status) {
             case 200:
-              this.loadingProject = false
-              var project = rsp.data.msg[0]
-              this.project = project
+              this.loadingProject = false;
+              var project = rsp.data.msg[0];
+              this.project = project;
               break;
             case 203:
               console.log("projeto n encontrado");
-              break
+              break;
             default:
               break;
           }
@@ -96,7 +122,6 @@ export default {
           console.log("Error Catch", error);
         });
     },
-    
   },
   computed: {
     activeFab() {
@@ -112,14 +137,12 @@ export default {
       }
     },
   },
-  watch: {
-    
-  },
+  watch: {},
   created() {
     console.log("creted params", this.$route.params);
-    this.idCurrentProject = this.$route.params.idProjeto
-    var projectId = this.idCurrentProject
-    this.getUserProject(projectId)
+    this.idCurrentProject = this.$route.params.idProjeto;
+    var projectId = this.idCurrentProject;
+    this.getUserProject(projectId);
   },
 };
 </script>

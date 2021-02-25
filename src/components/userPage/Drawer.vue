@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-navigation-drawer
-      v-bind:value="value"
-      v-on:input="$emit('input', $event)"
+      v-bind:value="drawer"
+      v-on:input="$emit('updateDrawer', $event)"
       absolute
       dark
       class="light-blue darken-1"
@@ -25,7 +25,7 @@
           v-for="item in items"
           :key="item.title"
           link
-          :to="{ path: '/' + item.route }"
+          :to="{ path: item.route }"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -55,8 +55,7 @@ import { CLEAN_COMPANY_DATE } from "./../../store/actions/user";
 
 export default {
   props: {
-    drawer: { type: Boolean },
-    value: {
+    drawer: {
       type: Boolean,
       default: false,
     },
@@ -64,27 +63,26 @@ export default {
   data() {
     return {
       key: "value",
-      showDrawer: false,
       items: [
         {
           title: "Dashboard",
           icon: "mdi-puzzle-edit-outline",
-          route: "dashboard",
+          route: "/dashboard",
         },
         {
           title: "Projeto",
           icon: "mdi-plus",
-          route: "formProjeto",
+          route: "/projeto/add",
         },
         {
           title: "Jobs",
           icon: "mdi-eye",
-          route: "searchJobs",
+          route: "/projetos",
         },
         {
           title: "Editar dados",
           icon: "mdi-content-save-edit",
-          route: "",
+          route: "/#",
         },
       ],
     };

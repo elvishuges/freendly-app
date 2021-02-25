@@ -1,7 +1,8 @@
 <template>
   <v-app>
-    <drawer @input="input" :value="drawer" />
-    <bar @opendDrawer="handleOpenDrawerEvent" />
+    <drawer @updateDrawer="updateDrawer" :drawer="drawer" />
+    <bar title="Usuário" @opendDrawer="handleOpenDrawerEvent" />
+
     <router-view></router-view>
   </v-app>
 </template>
@@ -34,10 +35,9 @@ export default {
       this.drawer ? (this.drawer = false) : "";
     },
     handleOpenDrawerEvent() {
-      console.log("handleOpenDrawerEvent", this.drawer);
       this.drawer = true;
     },
-    input(payload) {
+    updateDrawer(payload) {
       payload ? "" : (this.drawer = false);
     },
   },

@@ -2,7 +2,7 @@
 
 <template>
   <v-container>
-    <app-bar color="secondary" title="Freendly"></app-bar>
+    <login-register-bar color="secondary" title="Freendly"></login-register-bar>
     <v-container fluid class="mt-4">
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md6>
@@ -24,14 +24,14 @@
 </style>
 
 <script>
-import AppBar from "@/components/AppBar";
+import LoginRegisterBar from "@/components/LoginRegisterBar";
 import { AUTH_REGISTER_REQUEST } from "./../store/actions/auth";
 import RegisterForm from "../components/register/RegisterForm.vue";
 
 export default {
   name: "login",
   components: {
-    AppBar,
+    LoginRegisterBar,
     RegisterForm,
   },
   data() {
