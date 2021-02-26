@@ -1,18 +1,18 @@
 <template>
-  <v-container style="min-height: 600px">
-    <v-flex xs12>
-      <v-card elevation="0">
-        <v-card-text>
-          <v-card-title>
-            <span class="font-weight-medium">Criar projeto ({{}}/4)</span>
-          </v-card-title>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-container>
+  <div>
+    <p class="headline font-weight-regular pl-4 pt-4">Projetos</p>
+    <v-container style="min-height: 600px" class="mt-3">
+      <v-row>
+        <v-flex class="pa-2" v-for="item in items" :key="item.id" xs12 sm6 md4
+          ><card-projeto></card-projeto>
+        </v-flex>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
+import CardProjeto from "./components/FeedProjetos/CardProjeto.vue";
 export default {
   props: {
     tabId: {
@@ -23,6 +23,9 @@ export default {
       default: false,
     },
   },
+  components: {
+    CardProjeto,
+  },
   data() {
     return {
       loadedData: false,
@@ -32,50 +35,24 @@ export default {
       searchString: "",
       helo: "",
       isUpdating: false,
-      states: [
-        "Alabama",
-        "Alaska",
-        "American Samoa",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Federated States of Micronesia",
-        "Florida",
-        "Georgia",
-        "Guam",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Marshall Islands",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-      ],
+
       items: [
         {
+          id: 0,
           color: "#1F7087",
           src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
           title: "Supermodel",
           artist: "Foster the People",
         },
         {
+          id: 1,
           color: "#1F7087",
           src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
           title: "Halcyon Days",
           artist: "Ellie Goulding",
         },
         {
+          id: 2,
           color: "#1F7087",
           src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
           title: "Halcyon Days",
