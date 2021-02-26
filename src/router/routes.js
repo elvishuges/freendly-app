@@ -21,6 +21,20 @@ const ifAuthenticated = (to, from, next) => {
     next();
 };
 
+// let pagesMenu = {
+//     path: '/pages',
+//     component: UserPage,
+//     name: 'Pages',
+//     redirect: '/pages/user',
+//     children: [
+//         {
+//             path: 'user',
+//             name: 'User Page',
+//             component: User
+//         },
+//     ]
+// }
+
 const routes = [
     {
         path: "/login",
@@ -49,6 +63,7 @@ const routes = [
     {
         path: "/userPage",
         name: "userPage",
+        redirect: "/dashboard",
         component: UserPage,
         children: [
             {

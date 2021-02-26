@@ -3,19 +3,17 @@
 <template>
   <v-container>
     <login-register-bar title="Freendly"></login-register-bar>
-    <v-layout row>
+    <v-layout align-center justify-center>
       <v-flex xs12 sm6 md8 class="pr-3 pt-4 pl-3 hidden-sm-and-down">
         <v-img src="./../assets/loginImage2.jpg"></v-img>
       </v-flex>
-      <v-flex xs12 sm12 md4 class="pt-4" align-center justify-center>
-        <v-layout column>
-          <login-form
-            :loadingSubmitBottom="loading"
-            @submitFormLogin="submitForm"
-          >
-          </login-form>
-          <v-alert dark shaped :value="alert" color="red">{{ msg }}</v-alert>
-        </v-layout>
+      <v-flex xs12 sm6 md4>
+        <login-form
+          :loadingSubmitBottom="loading"
+          @submitFormLogin="submitForm"
+        >
+        </login-form>
+        <v-alert dark shaped :value="alert" color="red">{{ msg }}</v-alert>
       </v-flex>
     </v-layout>
   </v-container>
