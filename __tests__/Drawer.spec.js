@@ -1,21 +1,34 @@
-import { mount } from '@vue/test-utils'
-import { shallowMount } from '@vue/test-utils'
-import Drawer from './../src/components/userPage/Drawer'
+// Utilities
+import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
+
+// Components
+import Drawer from '@/components/userPage/Drawer'
 
 
-test('Hello', () => {
-  // renderiza o componente
-  const wrapper = shallowMount(Drawer)
+// Libraries
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import Vuex from 'vuex'
+import store from '@/store' //you could also mock this out.
 
-  // não deve permitir `username` menor que 7 caracteres, exclui espaço em branco
-  wrapper.setData({ username: ' '.repeat(7) })
+const localVue = createLocalVue()
+localVue.use(Vuex)
 
-  // afirma se a mensagem de erro está renderizada
-  expect(wrapper.find('.error').exists()).toBe(true)
+describe('Drawer Component', () => {
 
-  // atualiza o nome para ser longo o suficiente
-  wrapper.setData({ username: 'Lachlan' })
+  let vuetify
 
-  // afirma se a mensagem de erro se foi
-  expect(wrapper.find('.error').exists()).toBe(false)
+  beforeEach(() => {
+    vuetify = new Vuetify()
+  })
+
+  it('should have a custom title and match snapshot', () => {
+    const wrapper = shallowMount(Drawer, {
+      localVue,
+      vuetify,
+      store
+    })
+
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
