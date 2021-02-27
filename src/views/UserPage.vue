@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <drawer @updateDrawer="updateDrawer" :drawer="drawer" />
-    <bar title="Usuário" @opendDrawer="handleOpenDrawerEvent" />
+    <drawer
+      :drawerItens="drawerItens"
+      @updateDrawer="updateDrawer"
+      :drawer="drawer"
+    />
+    <bar title="Usuário" @open-drawer="handleOpenDrawerEvent" />
 
     <router-view></router-view>
   </v-app>
@@ -23,6 +27,28 @@ export default {
       items: [
         { title: "Home", icon: "dashboard" },
         { title: "About", icon: "question_answer" },
+      ],
+      drawerItens: [
+        {
+          title: "Dashboard",
+          icon: "mdi-puzzle-edit-outline",
+          route: "/dashboard",
+        },
+        {
+          title: "Projeto",
+          icon: "mdi-plus",
+          route: "/projeto/add",
+        },
+        {
+          title: "Jobs",
+          icon: "mdi-eye",
+          route: "/projetos",
+        },
+        {
+          title: "Editar dados",
+          icon: "mdi-content-save-edit",
+          route: "/#",
+        },
       ],
     };
   },

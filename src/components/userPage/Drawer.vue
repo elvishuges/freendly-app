@@ -22,7 +22,7 @@
       <v-divider></v-divider>
       <v-list nav>
         <v-list-item
-          v-for="item in items"
+          v-for="item in drawerItens"
           :key="item.title"
           link
           :to="{ path: item.route }"
@@ -59,32 +59,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    drawerItens: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
       key: "value",
-      items: [
-        {
-          title: "Dashboard",
-          icon: "mdi-puzzle-edit-outline",
-          route: "/dashboard",
-        },
-        {
-          title: "Projeto",
-          icon: "mdi-plus",
-          route: "/projeto/add",
-        },
-        {
-          title: "Jobs",
-          icon: "mdi-eye",
-          route: "/projetos",
-        },
-        {
-          title: "Editar dados",
-          icon: "mdi-content-save-edit",
-          route: "/#",
-        },
-      ],
     };
   },
   mounted() {},

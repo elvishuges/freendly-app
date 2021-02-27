@@ -1,34 +1,60 @@
-// Utilities
-import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
+
+
+//Utilities
+import VueRouter from 'vue-router';
+import Vuetify from 'vuetify';
+
 
 // Components
 import Drawer from '@/components/userPage/Drawer'
 
-
-// Libraries
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-import Vuex from 'vuex'
-import store from '@/store' //you could also mock this out.
+// Utilities
+import store from "@/store";
+import {
+  createLocalVue,
+  mount,
+  shallowMount
+} from '@vue/test-utils'
 
 const localVue = createLocalVue()
-localVue.use(Vuex)
 
-describe('Drawer Component', () => {
-
+describe('Drawer Tests', () => {
+  const routes = [
+    { path: '/items/:item_id/edit', name: 'item-edit' }
+  ];
   let vuetify
 
+  const router = new VueRouter({ routes });
+
   beforeEach(() => {
+    const localVue = createLocalVue();
+    localVue.use(VueRouter);
     vuetify = new Vuetify()
-  })
+  });
 
-  it('should have a custom title and match snapshot', () => {
+  it('drawer first state tobe false', () => {
+
     const wrapper = shallowMount(Drawer, {
-      localVue,
+      localVue: localVue,
+      router,
+      store,
       vuetify,
-      store
-    })
+    });
 
-    expect(wrapper.html()).toMatchSnapshot()
-  })
+    expect(wrapper.isVueInstance).toBeTruthy();
+    expect(wrapper.props().drawer).toBe(false)
+  });
+
+  it('itensDrawer first state tobe array []', () => {
+
+    const wrapper = shallowMount(Drawer, {
+      localVue: localVue,
+      router,
+      store,
+      vuetify,
+    });
+    let drawerItens = () => []
+
+    expect(wrapper.props().drawerItens).toEqual(drawerItens())
+  });
 })

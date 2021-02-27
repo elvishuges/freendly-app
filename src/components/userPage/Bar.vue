@@ -32,7 +32,7 @@ export default {
 
   methods: {
     openDrawer: function () {
-      this.$emit("opendDrawer");
+      this.$emit("open-drawer");
     },
   },
 };

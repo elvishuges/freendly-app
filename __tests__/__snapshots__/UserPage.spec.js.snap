@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Userpage Tests create components and snapshots 1`] = `
+<v-app-stub id="app">
+  <drawer-stub draweritens="[object Object],[object Object],[object Object],[object Object]"></drawer-stub>
+  <bar-stub title="Usuário"></bar-stub>
+  <router-view></router-view>
+</v-app-stub>
+`;
+
+exports[`Userpage Tests criacao de component 1`] = `
+<v-app-stub id="app">
+  <drawer-stub draweritens="[object Object],[object Object],[object Object],[object Object]"></drawer-stub>
+  <bar-stub title="Usuário"></bar-stub>
+  <router-view></router-view>
+</v-app-stub>
+`;
