@@ -41,7 +41,7 @@ describe('Drawer Tests', () => {
       vuetify,
     });
 
-    expect(wrapper.isVueInstance).toBeTruthy();
+    expect(wrapper.vm).toBeTruthy();
     expect(wrapper.props().drawer).toBe(false)
   });
 

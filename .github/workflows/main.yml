@@ -1,0 +1,38 @@
+on: [push, pull_request]
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2.3.2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Testing
+      run: CI=true npm run test
+
+    - name: Use Node.js 12
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: '12'
+
+    - name: 🔨 Build Project
+      run: |
+        npm run build
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: files.000webhost.com
+        username: sistemahuges
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./build/
+        server-dir: public_html/
+        exclude: .git*
+          - .git*/**
+          -  **/.git*/**
+          - node_modules/**
+          - node_modules/**/*

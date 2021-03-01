@@ -48,7 +48,7 @@ export default {
     };
   },
   mounted() {
-    console.log("####***", process.env.NODE_ENV, "***####");
+    //console.log("####***", process.env.NODE_ENV, "***####");
   },
   methods: {
     submitForm(payload) {
