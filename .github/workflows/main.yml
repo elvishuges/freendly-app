@@ -29,7 +29,7 @@ jobs:
         server: files.000webhost.com
         username: sistemahuges
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./build/
+        local-dir: ./dist/
         server-dir: public_html/
         exclude: .git*
           - .git*/**
