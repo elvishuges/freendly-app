@@ -1,21 +1,31 @@
 <template>
   <v-container>
     <v-row>
-      <v-col xs12 sm8 md8 class="pt-4 pb-0">
+      <v-flex xs12 sm7 md7 class="pt-4 pb-0">
         <v-skeleton-loader :loading="loadingProject" type="card">
           <v-card class="pb-0" min-height="200" dark elevation="0">
             <v-card-title class="title teal lighten-2 font-weight-bold">
               {{ project.nome }}
             </v-card-title>
             <v-img
-              :src="`${serverHost}${project.dirImagem}`"
+              aspect-ratio="1"
+              :src="`${serverHost}${project.dirImagem}12`"
               height="200"
+              :lazy-src="`https://picsum.photos/10/6?image=12`"
               class="grey darken-4"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey lighten-5"
+                  ></v-progress-circular>
+                </v-row> </template
             ></v-img>
           </v-card>
         </v-skeleton-loader>
-      </v-col>
-      <v-col xs12 sm4 md4 class="pa-0 pt-0">
+      </v-flex>
+      <v-col xs12 sm5 md5 class="pa-0 pt-0">
         <v-skeleton-loader
           :loading="loadingProject"
           transition="scale-transition"
@@ -180,32 +190,32 @@ export default {
       tasks: [
         {
           id: 1,
-          titulo: "aaaaaaaaaaa 1",
+          titulo: "Título 1",
           descricao:
             "lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1 lorem inputn asd ere photo 1",
           concluido: false,
         },
         {
           id: 2,
-          titulo: "Interface 2",
+          titulo: "Título 2",
           descricao: "lorem inputn asd ere photo 2",
           concluido: true,
         },
         {
           id: 3,
-          titulo: "Interface 3",
+          titulo: "Título 3",
           descricao: "lorem inputn asd ere photo 3",
           concluido: false,
         },
         {
           id: 4,
-          titulo: "Interface 4",
+          titulo: "Título 4",
           descricao: "lorem inputn asd ere photo 4",
           concluido: false,
         },
         {
           id: 5,
-          titulo: "Interface 5",
+          titulo: "Título 5",
           descricao: "lorem inputn asd ere photo 5",
           concluido: false,
         },
